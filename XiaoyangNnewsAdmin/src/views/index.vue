@@ -1,38 +1,66 @@
 <template>
   <el-container class="controller">
-    <el-aside width="200px"> <Menu></Menu></el-aside>
+    <el-aside :style="{ width: store.isCollapse == true ? '65px' : '200px' }">
+      <Menu></Menu>
+    </el-aside>
     <el-container>
       <el-header>
-        <transition mode="out-in" leave-active-class="animate__animated animate__rotateOut">
-          <keep-alive>
-            <el-icon size="30" key="enter" v-if="isCollapse" @click="isCollapse = !isCollapse">
-              <i-ep-fold />
-            </el-icon>
-            <el-icon size="30" key="leave" v-else @click="isCollapse = !isCollapse">
-              <i-ep-expand />
-            </el-icon>
-          </keep-alive>
-        </transition>
+        <Header></Header>
       </el-header>
-      <el-main>Main</el-main>
+      <el-main>
+        <div class="main">
+          <router-view></router-view>
+        </div>
+      </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script setup lang="ts">
 import Menu from "@/components/Menus/index.vue"
-import "animate.css"
-const isCollapse = ref(true)
+import Header from "@/components/Header/index.vue"
+import Main from "@/components/Header/index.vue"
+import { useSystemStore } from "@/stores/system"
+const store = useSystemStore()
+
+// const before = (el: Element) => {
+//   gsap.set(el, {
+//     width: 200
+//   })
+// }
+// const enter = (el: Element, done: gsap.Callback) => {
+//   console.log("11111111 :>> ", 11111111)
+//   gsap.to(el, {
+//     width: 200,
+//     onComplete: done
+//   })
+// }
+// const leave = (el: Element, done: gsap.Callback) => {
+//   console.log("11111111 :>> ", 11111111)
+
+//   gsap.to(el, {
+//     width: 60,
+//     onComplete: done
+//   })
+// }
 </script>
 
 <style lang="less" scoped>
 .controller {
+  transition: all 0.5s linear;
   height: 100%;
-  :deep(.el-menu-item-group__title) {
+  :deep(.el-header) {
     padding: 0;
   }
-  :deep(.el-container) {
-    height: 100%;
+
+  :deep(.el-aside) {
+    transition: width 1s;
+  }
+  :deep(.el-main) {
+    box-sizing: border-box;
+    margin: 12px;
+    padding: 20px;
+    background-color: #f5efe9;
   }
 }
 </style>

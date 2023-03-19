@@ -1,12 +1,8 @@
 <template>
-  <!-- :collapse="isCollapse"
-    @open="handleOpen"
-    @close="handleClose" -->
   <Menu :menus="data" class="controller"></Menu>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue"
 import Menu from "./Menu.vue"
 import type Menus from "./type"
 
