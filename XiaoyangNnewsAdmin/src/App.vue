@@ -1,7 +1,9 @@
 <template>
   <router-view></router-view>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+console.log("1 :>> ", 1)
+</script>
 
 <style lang="less" scoped>
 * {
