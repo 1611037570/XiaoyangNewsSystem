@@ -1,51 +1,62 @@
 <template>
-  <Menu :menus="data" class="controller"></Menu>
+  <div class="controller">
+    <div class="title" v-if="!store.isCollapse">
+      <h2>新闻管理系统</h2>
+    </div>
+    <div class="title" v-else>img</div>
+    <el-menu default-active="1-1" router :collapse="store.isCollapse">
+      <template v-for="menu in menus">
+        <!-- 一级菜单 -->
+        <el-sub-menu class="" v-if="menu.children != null" :index="menu.id" :key="menu.id">
+          <template #title>
+            <el-icon><i-ep-setting /> </el-icon>
+            <span>{{ menu.name }}</span>
+          </template>
+          <!-- 二级菜单 -->
+          <el-menu-item-group>
+            <el-menu-item v-for="m in menu.children" :index="m.path" :key="m.id">
+              {{ m.name }}
+            </el-menu-item>
+          </el-menu-item-group>
+        </el-sub-menu>
+        <!-- 无二级菜单 -->
+        <el-menu-item v-else :index="menu.path">
+          <el-icon><i-ep-setting /> </el-icon>
+          <template #title>{{ menu.name }}</template>
+        </el-menu-item>
+      </template>
+    </el-menu>
+  </div>
 </template>
 
 <script setup lang="ts">
-import Menu from "./Menu.vue"
+import { getMenu } from "@/service/api/system"
 import type Menus from "./type"
-
-const data = reactive<Menus[]>([
-  {
-    id: "1",
-    name: "首页",
-    level: 1,
-    children: [
-      {
-        id: "1-1",
-        name: "二级首页",
-        path: "/main/1",
-        level: 2
-      },
-      {
-        id: "1-2",
-        name: "二级首页",
-        path: "/main/2",
-        level: 2
-      }
-    ]
-  },
-  {
-    id: "2",
-    name: "分类",
-    path: "/",
-    level: 1
-  },
-  {
-    id: "3",
-    name: "一级test",
-    level: 1,
-    children: [
-      {
-        id: "3-1",
-        name: "二级test",
-        level: 2,
-        path: "/"
-      }
-    ]
-  }
-])
+import { useSystemStore } from "@/stores/system"
+// 登录后保存的 这里没写登录手动调用一下
+let menus: Menus[] = await getMenu()
+const store = useSystemStore()
+store.saveMenu()
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.controller {
+  border-right: 1px solid;
+
+  .title {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    transition: all 1.7s;
+  }
+}
+
+:deep(.el-menu) {
+  border: 0;
+  transition: all 0.7s;
+}
+:deep(.el-menu-item-group__title) {
+  padding: 0;
+}
+</style>

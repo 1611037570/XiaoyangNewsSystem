@@ -31,7 +31,6 @@
       <el-dropdown>
         <span class="info">
           <el-avatar
-            size="medium"
             src="https://upload.jianshu.io/users/upload_avatars/1102036/c3628b478f06.jpeg"
           ></el-avatar>
           <span class="name">11111111</span>

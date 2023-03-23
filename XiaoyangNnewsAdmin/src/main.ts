@@ -6,6 +6,7 @@ import router from "./router"
 
 import "./assets/base.less"
 
+console.log("import.meta.env :>> ", import.meta.env.VITE_BASE_URL)
 const app = createApp(App)
 
 app.use(createPinia())

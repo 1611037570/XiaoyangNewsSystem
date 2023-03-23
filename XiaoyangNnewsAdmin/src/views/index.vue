@@ -1,7 +1,9 @@
 <template>
   <el-container class="controller">
     <el-aside :style="{ width: store.isCollapse == true ? '65px' : '200px' }">
-      <Menu></Menu>
+      <Suspense>
+        <Menu></Menu>
+      </Suspense>
     </el-aside>
     <el-container>
       <el-header>
@@ -19,10 +21,8 @@
 <script setup lang="ts">
 import Menu from "@/components/Menus/index.vue"
 import Header from "@/components/Header/index.vue"
-import Main from "@/components/Header/index.vue"
 import { useSystemStore } from "@/stores/system"
 const store = useSystemStore()
-
 // const before = (el: Element) => {
 //   gsap.set(el, {
 //     width: 200

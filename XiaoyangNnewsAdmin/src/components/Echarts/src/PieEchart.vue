@@ -1,0 +1,64 @@
+<template>
+  <div id="dom"></div>
+</template>
+
+<script setup lang="ts">
+import * as echarts from "echarts"
+interface Props {
+  // 标题
+  text?: string
+  // 标签名称
+  name?: string
+  // 数据
+  data: Array<any>
+  // 半径
+  radius?: string
+  // 颜色
+  color?: Array<string>
+}
+const props = withDefaults(defineProps<Props>(), {
+  text: "默认标题",
+  name: "",
+  radius: "80%",
+  color: () => ["#00A3E0", "#FFA100", "#ffc0cb", "#BBFFAA", "#749f83", "#ca8622"]
+})
+let option = {
+  title: {
+    text: props.text,
+    left: "center"
+  },
+  tooltip: {
+    trigger: "item"
+  },
+  legend: {
+    orient: "vertical",
+    left: "left"
+  },
+  series: [
+    {
+      name: props.name,
+      type: "pie",
+      radius: props.radius,
+      data: props.data,
+      itemStyle: {
+        color: function (params: any) {
+          //注意，如果颜色太少的话，后面颜色不会自动循环，最好多定义几个颜色
+          var colorList = props.color
+          return colorList[params.dataIndex]
+        }
+      }
+    }
+  ]
+}
+
+onMounted(() => {
+  const dom = document.getElementById("dom") as HTMLElement
+  const myChart = echarts.init(dom)
+  window.addEventListener("resize", function () {
+    myChart.resize()
+  })
+  myChart.setOption(option)
+})
+</script>
+
+<style lang="less" scoped></style>

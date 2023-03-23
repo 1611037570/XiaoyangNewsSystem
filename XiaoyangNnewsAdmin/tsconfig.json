@@ -7,7 +7,7 @@
       "@/*": ["./src/*"]
     }
   },
-
+  "lib": ["WebWorker"],
   "references": [
     {
       "path": "./tsconfig.node.json"
