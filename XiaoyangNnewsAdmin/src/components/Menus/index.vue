@@ -30,13 +30,10 @@
 </template>
 
 <script setup lang="ts">
-import { getMenu } from "@/service/api/system"
 import type Menus from "./type"
 import { useSystemStore } from "@/stores/system"
-// 登录后保存的 这里没写登录手动调用一下
-let menus: Menus[] = await getMenu()
 const store = useSystemStore()
-store.saveMenu()
+let menus: Menus[] = store.menu
 </script>
 
 <style lang="less" scoped>

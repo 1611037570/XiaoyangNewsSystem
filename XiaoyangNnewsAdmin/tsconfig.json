@@ -5,9 +5,11 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "suppressImplicitAnyIndexErrors": true,
+    "lib": ["WebWorker", "dom"]
   },
-  "lib": ["WebWorker"],
+
   "references": [
     {
       "path": "./tsconfig.node.json"

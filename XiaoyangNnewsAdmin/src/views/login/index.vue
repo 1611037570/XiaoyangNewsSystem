@@ -1,16 +1,18 @@
 <template>
   <div class="login-controller">
-    <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-      <el-tab-pane label="账号登录2" name="first"></el-tab-pane>
-      <el-tab-pane label="验证登录" name="second"> </el-tab-pane>
-    </el-tabs>
+    <div class="login-box">
+      <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
+        <el-tab-pane label="账号登录2" name="account"></el-tab-pane>
+        <el-tab-pane label="验证登录" name="phone"> </el-tab-pane>
+        <transition mode="out-in" enter-active-class="animate__animated animate__bounceInLeft">
+          <keep-alive>
+            <Account key="account" v-if="current == true"></Account>
+            <Phone key="phone" v-else></Phone>
+          </keep-alive>
+        </transition>
+      </el-tabs>
+    </div>
   </div>
-  <transition mode="out-in" leave-active-class="animate__animated animate__rotateOut">
-    <keep-alive>
-      <Account v-if="activeName == 'first'"></Account>
-      <Phone v-else></Phone>
-    </keep-alive>
-  </transition>
 </template>
 <script lang="ts" setup>
 import "animate.css"
@@ -18,16 +20,14 @@ import Account from "./account.vue"
 import Phone from "./phone.vue"
 import type { TabsPaneContext } from "element-plus"
 
-const activeName = ref("first")
-const current = ref(true)
+const activeName = ref("account")
+const current = ref<boolean>(true)
+
 const handleClick = (tab: TabsPaneContext, event: Event) => {
-  if (activeName.value == "first") {
-    current.value = true
-  } else current.value = false
-  console.log("current :>> ", current)
-}
-const test = () => {
-  console.log("11111111111 :>> ", 11111111111)
+  console.log("tab.paneName :>> ", tab.paneName)
+
+  if (tab.paneName == "account") current.value = true
+  else current.value = false
 }
 </script>
 
@@ -38,14 +38,17 @@ const test = () => {
   align-items: center;
   width: 100%;
   height: 100%;
-  //   background: url("../../assets/img/login-bg.svg");
-}
-
-.demo-tabs > .el-tabs__content {
-  padding: 32px;
-  color: #6b778c;
-  font-size: 32px;
-  font-weight: 600;
-  width: 500px;
+  .login-box {
+    width: 400px;
+  }
+  :deep(.el-tabs__nav) {
+    width: 100%;
+  }
+  :deep(.el-tabs__item) {
+    text-align: center;
+    padding: 0;
+    flex: 1;
+    width: 50%;
+  }
 }
 </style>

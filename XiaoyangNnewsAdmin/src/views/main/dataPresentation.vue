@@ -1,5 +1,5 @@
 <template>
-  <BarEchart :data="data" :x-data="yData"></BarEchart>
+  <BarEchart class="box" :data="data" :x-data="yData"></BarEchart>
 </template>
 
 <script setup lang="ts">
@@ -21,4 +21,12 @@ let data = [
 let yData = ["djy", "李雪滢", "admin"]
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.box {
+  height: 400px;
+  width: 400px;
+  width: 40%;
+  border: 1px solid;
+  z-index: 999;
+}
+</style>

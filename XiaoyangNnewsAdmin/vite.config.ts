@@ -1,3 +1,4 @@
+import path from "path"
 import { fileURLToPath, URL } from "node:url"
 
 import { defineConfig, loadEnv } from "vite"
@@ -9,6 +10,7 @@ import AutoImport from "unplugin-auto-import/vite"
 import Components from "unplugin-vue-components/vite"
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers"
 
+const pathSrc = path.resolve(__dirname, "src")
 // 改造为函数形式
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd()) // 使用loadEnv获取当前环境配置
@@ -25,7 +27,9 @@ export default defineConfig(({ mode }) => {
           ElementPlusResolver(),
           // 自动导入图标组件
           IconsResolver()
-        ]
+        ],
+
+        dts: path.resolve(pathSrc, "auto-imports.d.ts")
       }),
       Components({
         resolvers: [
@@ -35,7 +39,8 @@ export default defineConfig(({ mode }) => {
           }),
           // 自动导入 Element Plus 组件
           ElementPlusResolver()
-        ]
+        ],
+        dts: path.resolve(pathSrc, "components.d.ts")
       }),
       // 自动安装Icons
       Icons({

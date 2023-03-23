@@ -3,6 +3,10 @@ import Request from "./request/request"
 const request = new Request({
   baseURL: "http://127.0.0.1:3000",
   timeout: 10000,
+  headers: {
+    "Content-type": "application/json;charset=UTF-8",
+    "Access-Control-Allow-Origin": "*"
+  },
   interceptorHooks: {
     requestInterceptor: (config) => {
       return config

@@ -1,4 +1,6 @@
-<template>321</template>
+<template>
+  <div>手机号！</div>
+</template>
 
 <script setup lang="ts"></script>
 

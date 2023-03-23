@@ -10,14 +10,12 @@ interface InterceptorHooks {
 }
 
 interface RequestConfig extends AxiosRequestConfig {
-  showLoading?: boolean
   interceptorHooks?: InterceptorHooks
 }
 
 interface Data<T> {
   data: T
-  returnCode: string
-  success: boolean
+  code: boolean
 }
 
 class Request {
@@ -55,13 +53,11 @@ class Request {
   }
 
   request<T = any>(config: RequestConfig): Promise<T> {
-    if (!config.showLoading) {
-    }
     return new Promise((resolve, reject) => {
       this.instance
-        .request<any, Data<T>>(config)
-        .then((res) => {
-          resolve(res.data)
+        .request<any>(config)
+        .then((res: any) => {
+          resolve(res)
         })
         .catch((err) => {
           reject(err)
