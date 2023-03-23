@@ -18,6 +18,8 @@ let data = [
     value: 7
   }
 ]
+console.log("111 :>> ")
+
 let yData = ["djy", "李雪滢", "admin"]
 </script>
 

@@ -34,6 +34,7 @@ import type Menus from "./type"
 import { useSystemStore } from "@/stores/system"
 const store = useSystemStore()
 let menus: Menus[] = store.menu
+console.log("111 :>> ")
 </script>
 
 <style lang="less" scoped>

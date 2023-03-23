@@ -4,6 +4,8 @@
 
 <script setup lang="ts">
 import * as echarts from "echarts"
+console.log("111 :>> ")
+
 interface Props {
   // 标题
   text?: string

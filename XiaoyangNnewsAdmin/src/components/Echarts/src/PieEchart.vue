@@ -50,6 +50,7 @@ let option = {
     }
   ]
 }
+console.log("111 :>> ")
 
 onMounted(() => {
   const dom = document.getElementById("dom") as HTMLElement

@@ -23,26 +23,7 @@ import Menu from "@/components/Menus/index.vue"
 import Header from "@/components/Header/index.vue"
 import { useSystemStore } from "@/stores/system"
 const store = useSystemStore()
-// const before = (el: Element) => {
-//   gsap.set(el, {
-//     width: 200
-//   })
-// }
-// const enter = (el: Element, done: gsap.Callback) => {
-//   console.log("11111111 :>> ", 11111111)
-//   gsap.to(el, {
-//     width: 200,
-//     onComplete: done
-//   })
-// }
-// const leave = (el: Element, done: gsap.Callback) => {
-//   console.log("11111111 :>> ", 11111111)
-
-//   gsap.to(el, {
-//     width: 60,
-//     onComplete: done
-//   })
-// }
+console.log("111 :>> ")
 </script>
 
 <style lang="less" scoped>

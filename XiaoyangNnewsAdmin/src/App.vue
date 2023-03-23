@@ -2,7 +2,7 @@
   <router-view></router-view>
 </template>
 <script setup lang="ts">
-console.log("1 :>> ", 1)
+console.log("111 :>> ")
 </script>
 
 <style lang="less" scoped>
