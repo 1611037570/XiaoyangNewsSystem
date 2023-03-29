@@ -1,9 +1,11 @@
 <template>
-  <div id="dom"></div>
+  <div :id="id"></div>
 </template>
 
 <script setup lang="ts">
 import * as echarts from "echarts"
+import snowflakeIdv1 from "@/utils/snowflakeIdv1"
+let id = snowflakeIdv1.NextId().toString()
 interface Props {
   // 标题
   text?: string
@@ -50,10 +52,9 @@ let option = {
     }
   ]
 }
-console.log("111 :>> ")
 
 onMounted(() => {
-  const dom = document.getElementById("dom") as HTMLElement
+  const dom = document.getElementById(id) as HTMLElement
   const myChart = echarts.init(dom)
   window.addEventListener("resize", function () {
     myChart.resize()

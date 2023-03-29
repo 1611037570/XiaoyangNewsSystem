@@ -1,24 +1,23 @@
 <template>
-  <div id="dom"></div>
+  <div :id="id"></div>
 </template>
 
 <script setup lang="ts">
 import * as echarts from "echarts"
-console.log("111 :>> ")
-
-interface Props {
-  // 标题
-  text?: string
-  // 标签名称
-  name?: string
-  // 数据
-  data: Array<any>
-  // 颜色
-  color?: Array<string>
-  // Y数据
-  yData?: Array<string | number>
-  // X数据
-  xData?: Array<string | number>
+import snowflakeIdv1 from "@/utils/snowflakeIdv1"
+let id = snowflakeIdv1.NextId().toString()
+type Props = {
+  text?: string // 标题
+  name?: string // 标签名称
+  data: Array<any> // 数据
+  color?: Array<string> // 颜色
+  yData?: Array<string | number> // Y数据
+  xData?: Array<string | number> // X数据
+}
+type Axis = {
+  type: string
+  data?: Array<string | number>
+  boundaryGap?: Array<number>
 }
 const props = withDefaults(defineProps<Props>(), {
   text: "默认标题",
@@ -27,12 +26,7 @@ const props = withDefaults(defineProps<Props>(), {
   yData: () => [],
   xData: () => []
 })
-console.log("props :>> ", props)
-type Axis = {
-  type: string
-  data?: Array<string | number>
-  boundaryGap?: Array<number>
-}
+
 let xAxis: Axis = {
   type: "value",
   boundaryGap: [0, 1]
@@ -86,7 +80,7 @@ let option = {
 }
 
 onMounted(() => {
-  const dom = document.getElementById("dom") as HTMLElement
+  const dom = document.getElementById(id) as HTMLElement
   const myChart = echarts.init(dom)
   window.addEventListener("resize", function () {
     myChart.resize()

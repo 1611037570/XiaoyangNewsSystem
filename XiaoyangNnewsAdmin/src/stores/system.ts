@@ -1,6 +1,5 @@
 import { defineStore } from "pinia"
 import { getMenu } from "@/service/api/system"
-console.log("111 :>> ")
 
 export const useSystemStore = defineStore("system", {
   persist: {

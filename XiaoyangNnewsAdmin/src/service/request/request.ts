@@ -1,6 +1,6 @@
 import axios from "axios"
 import type { AxiosRequestConfig, AxiosInstance, AxiosResponse } from "axios"
-console.log("111 :>> ")
+
 interface InterceptorHooks {
   requestInterceptor?: (config: AxiosRequestConfig) => AxiosRequestConfig
   requestInterceptorCatch?: (error: any) => any

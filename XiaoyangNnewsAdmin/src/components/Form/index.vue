@@ -113,7 +113,6 @@ const props = withDefaults(defineProps<Props>(), {
   },
   labelWidth: ""
 })
-console.log("111 :>> ")
 
 let formData = reactive({ ...props.formDatas })
 const formRef = ref<FormInstance>()
@@ -123,7 +122,6 @@ watch(formData, (newValue, oldValue) => {
 
 const validates = async () => {
   return await formRef.value?.validate((valid: boolean) => {
-    console.log("valid :>> ", valid)
     return valid
   })
 }

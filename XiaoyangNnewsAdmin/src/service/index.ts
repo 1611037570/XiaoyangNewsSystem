@@ -1,5 +1,4 @@
 import Request from "./request/request"
-console.log("111 :>> ")
 
 const request = new Request({
   baseURL: "http://127.0.0.1:3000",

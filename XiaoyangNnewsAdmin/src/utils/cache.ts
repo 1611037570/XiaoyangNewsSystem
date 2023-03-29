@@ -18,6 +18,5 @@ class LocalCache {
     window.localStorage.clear()
   }
 }
-console.log("111 :>> ")
 
 export default new LocalCache()

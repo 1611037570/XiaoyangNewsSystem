@@ -11,7 +11,9 @@
       </el-header>
       <el-main>
         <div class="main">
-          <router-view></router-view>
+          <Suspense>
+            <router-view></router-view>
+          </Suspense>
         </div>
       </el-main>
     </el-container>
@@ -23,7 +25,6 @@ import Menu from "@/components/Menus/index.vue"
 import Header from "@/components/Header/index.vue"
 import { useSystemStore } from "@/stores/system"
 const store = useSystemStore()
-console.log("111 :>> ")
 </script>
 
 <style lang="less" scoped>

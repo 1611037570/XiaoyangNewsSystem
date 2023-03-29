@@ -6,28 +6,34 @@
         <el-tab-pane label="验证登录" name="phone"> </el-tab-pane>
         <transition mode="out-in" enter-active-class="animate__animated animate__bounceInLeft">
           <keep-alive>
-            <Account key="account" v-if="current == true"></Account>
+            <Account ref="accountRef" key="account" v-if="current == true"></Account>
             <Phone key="phone" v-else></Phone>
           </keep-alive>
         </transition>
       </el-tabs>
+      <el-button class="login" @click="login">1111</el-button>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
 import "animate.css"
-import Account from "./account.vue"
-import Phone from "./phone.vue"
+import Account from "@/components/Login/account.vue"
+import Phone from "@/components/Login/phone.vue"
 import type { TabsPaneContext } from "element-plus"
 
 const activeName = ref("account")
 const current = ref<boolean>(true)
+const accountRef = ref(Account)
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
-  console.log("tab.paneName :>> ", tab.paneName)
-
   if (tab.paneName == "account") current.value = true
   else current.value = false
+}
+
+const login = () => {
+  if (current.value == true) {
+    accountRef.value.accountLogin()
+  }
 }
 </script>
 
@@ -40,6 +46,10 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
   height: 100%;
   .login-box {
     width: 400px;
+    border: 1px solid;
+    box-sizing: border-box;
+    padding: 20px;
+    height: 260px;
   }
   :deep(.el-tabs__nav) {
     width: 100%;
@@ -49,6 +59,13 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
     padding: 0;
     flex: 1;
     width: 50%;
+  }
+
+  .login {
+    margin-top: 10px;
+    // width: 100%;
+    margin: 0 auto !important;
+    text-align: center;
   }
 }
 </style>

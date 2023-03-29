@@ -1,7 +1,7 @@
 import request from "../index"
 
 // 统一添加
-export function unifyAdd(params) {
+export function unifyAdd(params: any) {
   return request.get({
     url: "/add",
     params
@@ -9,7 +9,7 @@ export function unifyAdd(params) {
 }
 
 // 统一删除
-export function unifyDel(params) {
+export function unifyDel(params: any) {
   return request.get({
     url: "/del",
     params
@@ -17,7 +17,7 @@ export function unifyDel(params) {
 }
 
 // 统一修改
-export function unifyRenew(params) {
+export function unifyRenew(params: any) {
   return request.get({
     url: "/renew",
     params
@@ -25,7 +25,7 @@ export function unifyRenew(params) {
 }
 
 // 统一请求
-export function unify(params) {
+export function unify(params: any) {
   return request.get({
     url: "/unify",
     params

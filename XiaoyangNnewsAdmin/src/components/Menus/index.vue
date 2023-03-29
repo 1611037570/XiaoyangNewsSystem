@@ -4,7 +4,7 @@
       <h2>新闻管理系统</h2>
     </div>
     <div class="title" v-else>img</div>
-    <el-menu default-active="1-1" router :collapse="store.isCollapse">
+    <el-menu :default-active="$route.path" router :collapse="store.isCollapse">
       <template v-for="menu in menus">
         <!-- 一级菜单 -->
         <el-sub-menu class="" v-if="menu.children != null" :index="menu.id" :key="menu.id">
@@ -34,7 +34,6 @@ import type Menus from "./type"
 import { useSystemStore } from "@/stores/system"
 const store = useSystemStore()
 let menus: Menus[] = store.menu
-console.log("111 :>> ")
 </script>
 
 <style lang="less" scoped>
