@@ -42,8 +42,7 @@ const store = useSystemStore()
     box-sizing: border-box;
     height: 100%;
     border: 1px solid red;
-    margin: 12px;
-    padding: 20px;
+    padding: 10px;
     background-color: #f5efe9;
   }
 }

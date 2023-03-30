@@ -5,17 +5,16 @@
       <BarEchart class="census" v-bind="censusData"></BarEchart>
     </div>
     <div class="right">
-      <div class="user" ref="userRef"></div>
-
-      <div class="news" ref="newsRef"></div>
-      <div class="nav" ref="navRef"></div>
-      <div class="note" ref="noteRef"></div>
+      <PieEchart class="user" v-bind="userData"></PieEchart>
+      <PieEchart class="news" v-bind="newsData"></PieEchart>
+      <PieEchart class="nav" v-bind="navData"></PieEchart>
+      <PieEchart class="note" v-bind="noteData"></PieEchart>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { BarEchart } from "@/components/Echarts/"
+import { BarEchart, PieEchart } from "@/components/Echarts/"
 import { getCensus } from "@/service/api/show"
 import { unify } from "@/service/api/unify"
 
@@ -61,14 +60,76 @@ const all = async () => {
     conut: true
   })
   arr.push(res.data[0].rows)
-  console.log("arr :>> ", arr)
   return {
     data: arr,
     xData: ["注册总数", "新闻总数", "分类总数", "文案总数"]
   }
 }
-let allData = await all()
-let censusData = await census()
+
+const user = async () => {
+  let res
+  let data: any = []
+  let config = {
+    name: "user",
+    conut: true,
+    data: {
+      role: 1
+    }
+  }
+  res = await unify(config)
+  data.push({
+    name: "作者",
+    value: res.data[0].rows
+  })
+  res = await unify(config)
+
+  data.push({
+    name: "用户",
+    value: res.data[0].rows
+  })
+
+  return { data, text: "注册总数" }
+}
+
+const pie = async (name: string, flag: string, text?: string) => {
+  let res
+  let config = {
+    name,
+    all: true
+  }
+  res = await unify(config)
+  let arr: any = []
+  let data: any = []
+  res.data.forEach((item: any) => {
+    if (arr.includes(item[`${flag}`])) {
+      let i = arr.indexOf(item[`${flag}`])
+      data[i].value++
+    } else {
+      arr.push(item[`${flag}`])
+      data.push({
+        name: item[`${flag}`],
+        value: 1
+      })
+    }
+  })
+  return {
+    data,
+    text
+  }
+}
+
+let noteData = shallowRef(await pie("note", "name", "文案总数"))
+let navData = shallowRef(await pie("nav", "title", "分类总数"))
+let newsData = shallowRef(await pie("news", "title", "新闻总数"))
+let userData = shallowRef(await user())
+let allData = shallowRef(await all())
+let censusData = shallowRef<any>({
+  data: []
+})
+
+setTimeout(async () => {
+  censusData.value = await census()
+}, 1000)
 </script>
 
 <style lang="less" scoped>
@@ -98,9 +159,6 @@ let censusData = await census()
       margin-bottom: 4px;
       height: 201px;
       border: 1px solid #5ff33e;
-    }
-
-    .note {
     }
   }
   .left {

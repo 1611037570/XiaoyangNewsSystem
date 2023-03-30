@@ -17,17 +17,21 @@ interface Props {
   radius?: string
   // 颜色
   color?: Array<string>
+  // 标题大小
+  titleSize?: number
 }
 const props = withDefaults(defineProps<Props>(), {
   text: "默认标题",
   name: "",
-  radius: "80%",
-  color: () => ["#00A3E0", "#FFA100", "#ffc0cb", "#BBFFAA", "#749f83", "#ca8622"]
+  radius: "50%",
+  color: () => ["#00A3E0", "#FFA100", "#ffc0cb", "#BBFFAA", "#749f83", "#ca8622"],
+  titleSize: 14
 })
 let option = {
   title: {
     text: props.text,
-    left: "center"
+    left: "center",
+    textStyle: { fontSize: props.titleSize }
   },
   tooltip: {
     trigger: "item"

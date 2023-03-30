@@ -48,5 +48,6 @@ declare module '@vue/runtime-core' {
     PieEchart: typeof import('./components/Echarts/src/PieEchart.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Table: typeof import('./components/Table/index.vue')['default']
   }
 }
