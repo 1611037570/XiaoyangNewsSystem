@@ -14,7 +14,7 @@
       :model="formData"
     >
       <el-row :gutter="20">
-        <!-- 根据配置动态添加el-form-item -->
+        <!-- 根据配置动态添加 -->
         <template v-for="item in formItems">
           <el-col v-bind="colLayout">
             <el-form-item
@@ -40,7 +40,7 @@
                   :placeholder="item.placeHolder"
                   v-model="formData[`${item.prop}`]"
                 >
-                  <!-- 下拉属性 -->
+                  <!-- 下拉框 -->
                   <el-option
                     v-for="option in item.options"
                     :label="option.label"
@@ -54,7 +54,7 @@
                 <el-date-picker style="width: 100%" v-model="formData[`${item.prop}`]">
                 </el-date-picker>
               </template>
-              <!--  -->
+              <!-- 文本框 -->
               <template v-else-if="item.type === 'textarea'">
                 <el-form-item style="height: 120px">
                   <el-input

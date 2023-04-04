@@ -18,6 +18,7 @@ declare module '@vue/runtime-core' {
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCol: typeof import('element-plus/es')['ElCol']
+    ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
@@ -53,6 +54,7 @@ declare module '@vue/runtime-core' {
     RoseEchart: typeof import('./components/Echarts/src/RoseEchart.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Search: typeof import('./components/Search/index.vue')['default']
     Src: typeof import("./components/Echarts/src/index.vue")["default"]
     Table: typeof import('./components/Table/index.vue')['default']
   }

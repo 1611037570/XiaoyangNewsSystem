@@ -56,73 +56,73 @@
         </template>
       </el-table-column>
     </el-table>
-
-    <!-- <el-pagination
+    <!-- 分页配置 -->
+    <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :page-sizes="page.pageSizes"
-      :current-page="page.pageIndex + 1"
-      :page-size="page.pageSize"
+      :page-sizes="props.pages.pageSizes"
+      :current-page="store.page.pageIndex + 1"
+      :page-size="store.page.pageSize"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="total"
+      :total="store.total"
     >
-    </el-pagination> -->
+    </el-pagination>
   </div>
 </template>
 
 <script setup lang="ts">
-import { unify } from "@/service/api/unify"
 import { useTableStore } from "@/stores/table"
-const store = useTableStore()
 
-let page: {}
-let data: []
-interface Props {
+type Props = {
   propList: Array<any> // 表头数据
-  pages?: Object // 分页配置
+  pages?: { [key: string]: any } // 分页配置
   title?: String // 表标题名
   name: string
 }
 
-const multipleSelection = ref()
 const props = withDefaults(defineProps<Props>(), {
   formDatas: () => {
     return {}
   },
   propList: () => [],
   pages: () => {
-    return { pageIndex: 0, pageSize: 1, pageSizes: [1, 2, 3, 4] }
+    return { index: 0, size: 1, pageSizes: [1, 2, 3, 4] }
+  },
+  colLayout: () => {
+    return {
+      xl: 6,
+      lg: 8, // ≥1200px
+      md: 12, // ≥992px
+      sm: 24, // ≥768px
+      xs: 24 // <768px
+    }
   }
 })
-
-//   onMounted(()=> {
-//     this.page = { ...this.pages }
-//     this.renew()
-//   })
-// 更新表
-const renew = async () => {
-  store.name = props.name
-
-  store.saveList()
+// 初始化数据
+const store = useTableStore()
+const multipleSelection = ref()
+store.name = props.name
+store.page = {
+  pageIndex: props.pages.index,
+  pageSize: props.pages.size
 }
-renew()
+store.renewTbale()
+
 // 当选择项发生变化时会触发该事件
 const handleSelectionChange = (val: any) => {
   multipleSelection.value = val
 }
 
 // 分页数量事件
-const handleSizeChange = (pageSize: any) => {
-  //   this.page.pageSize = pageSize
-  //   this.page.pageIndex = 0
-  //   this.$store.commit("unify/savePage", this.page)
-  //   this.renew()
+const handleSizeChange = (val: number) => {
+  store.page.pageSize = val
+  store.page.pageIndex = 0
+  store.saveList()
 }
-// 分页页码事件
-const handleCurrentChange = (pageIndex: any) => {
-  //   this.page.pageIndex = pageIndex - 1
-  //   this.$store.commit("unify/savePage", this.page)
-  //   this.renew()
+// // 分页页码事件
+const handleCurrentChange = (val: number) => {
+  store.page.pageIndex = val - 1
+  store.saveList()
 }
 // 操作行
 const edit = (row?: any) => {
@@ -130,8 +130,7 @@ const edit = (row?: any) => {
   //   this.$store.commit("unify/saveVisible", true)
 }
 
-let selected: [] // 选中数据
-// 点击按钮--删除行
+// 删除行事件
 const del = (row?: any, flag?: any) => {
   ElMessageBox.confirm("此操作将永久删除!", "提示", {
     confirmButtonText: "确定",
@@ -144,29 +143,6 @@ const del = (row?: any, flag?: any) => {
       } else store.delList(row)
     })
     .catch(() => {})
-
-  //     if (selected) {
-  //       this.selected.forEach((item) => {
-  //         this.delData(item)
-  //       })
-  //     } else this.delData(row)
-
-  //   .catch(() => {})
-}
-// 实现删除操作
-const delData = async (row: any) => {
-  //   let config = {
-  //     name: this.name
-  //   }
-  //   if (this.name == "news") {
-  //     config.config = row.newsId
-  //   } else config.config = row.id
-  //   let res = await unifyDel(config)
-  //   if (res.code === 200) {
-  //     this.$message.success("删除成功")
-  //     this.page.pageIndex = 0
-  //     this.renew()
-  //   } else this.$message.error("删除失败")
 }
 </script>
 

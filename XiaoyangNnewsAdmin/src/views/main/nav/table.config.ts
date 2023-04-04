@@ -5,5 +5,5 @@ export const tableConfig = {
     { prop: "id", label: "ID", sort: true },
     { prop: "title", label: "标题" }
   ],
-  pages: { pageIndex: 0, pageSize: 5, pageSizes: [5, 10, 15, 20] }
+  pages: { index: 0, size: 1, pageSizes: [1, 2, 3, 4] }
 }
