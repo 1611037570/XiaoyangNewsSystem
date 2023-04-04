@@ -3,10 +3,9 @@
 </template>
 
 <script setup lang="ts">
-import * as echarts from "echarts"
-import snowflakeIdv1 from "@/utils/snowflakeIdv1"
-console.log("111111111111111 :>> ", 111111111111111)
-let id = snowflakeIdv1.NextId().toString()
+import { getId, MyChart } from "./mixin"
+let id = getId()
+// let id = snowflakeIdv1.NextId().toString()
 type Props = {
   text?: string // 标题
   data: Array<any> // 数据
@@ -81,27 +80,18 @@ let option = computed(() => {
   return obj
 })
 
-let myChart: any
 onMounted(() => {
-  const dom = document.getElementById(id) as HTMLElement
-  myChart = echarts.init(dom)
-  myChart.showLoading()
+  const myChart = new MyChart(id)
   watch(
     () => props.data,
     (newValue, oldValue) => {
       if (newValue !== undefined && newValue.length != 0) {
-        myChart.hideLoading()
-        myChart.setOption(option.value)
+        myChart.set(option.value)
       }
     },
     { immediate: true }
   )
-  window.addEventListener("resize", function () {
-    myChart.resize()
-  })
 })
-
-// myChart.hideLoading()
 </script>
 
 <style lang="less" scoped></style>

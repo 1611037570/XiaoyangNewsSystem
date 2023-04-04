@@ -31,29 +31,28 @@ let option = computed(() => {
   return {
     title: {
       text: props.text,
-      left: "center",
-      textStyle: { fontSize: props.titleSize }
-    },
-    tooltip: {
-      trigger: "item"
+      left: "center"
     },
     legend: {
-      orient: "vertical",
-      left: "left"
+      top: "bottom"
+    },
+    toolbox: {
+      show: true,
+      feature: {
+        saveAsImage: { show: true }
+      }
     },
     series: [
       {
-        name: props.name,
+        name: "Nightingale Chart",
         type: "pie",
-        radius: props.radius,
-        data: props.data,
+        radius: [30, 90],
+        center: ["50%", "50%"],
+        roseType: "area",
         itemStyle: {
-          color: function (params: any) {
-            //注意，如果颜色太少的话，后面颜色不会自动循环，最好多定义几个颜色
-            var colorList = props.color
-            return colorList[params.dataIndex]
-          }
-        }
+          borderRadius: 8
+        },
+        data: props.data
       }
     ]
   }

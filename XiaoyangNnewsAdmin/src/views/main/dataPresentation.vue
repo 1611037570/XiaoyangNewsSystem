@@ -7,14 +7,14 @@
     <div class="right">
       <PieEchart class="user" v-bind="userData"></PieEchart>
       <PieEchart class="news" v-bind="newsData"></PieEchart>
-      <PieEchart class="nav" v-bind="navData"></PieEchart>
+      <RoseEchart class="rose" v-bind="navData"></RoseEchart>
       <PieEchart class="note" v-bind="noteData"></PieEchart>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { BarEchart, PieEchart } from "@/components/Echarts/"
+import { BarEchart, PieEchart, RoseEchart } from "@/components/Echarts/"
 import { getCensus } from "@/service/api/show"
 import { unify } from "@/service/api/unify"
 
@@ -118,17 +118,20 @@ const pie = async (name: string, flag: string, text?: string) => {
   }
 }
 
-let noteData = shallowRef(await pie("note", "name", "文案总数"))
-let navData = shallowRef(await pie("nav", "title", "分类总数"))
-let newsData = shallowRef(await pie("news", "title", "新闻总数"))
-let userData = shallowRef(await user())
-let allData = shallowRef(await all())
+let noteData = shallowRef<any>(await pie("note", "name", "文案总数"))
+let navData = shallowRef<any>(await pie("nav", "title", "分类总数"))
+let newsData = shallowRef<any>(await pie("news", "title", "新闻总数"))
+let userData = shallowRef<any>({
+  data: []
+})
+let allData = shallowRef<any>(await all())
 let censusData = shallowRef<any>({
   data: []
 })
 
 setTimeout(async () => {
   censusData.value = await census()
+  userData.value = await user()
 }, 1000)
 </script>
 
@@ -152,13 +155,18 @@ setTimeout(async () => {
     .note,
     .news,
     .nav,
-    .user {
+    .user,
+    .rose {
       box-sizing: border-box;
       padding: 10px;
       background-color: #fff;
       margin-bottom: 4px;
       height: 201px;
       border: 1px solid #5ff33e;
+    }
+
+    .rose {
+      height: 350px;
     }
   }
   .left {

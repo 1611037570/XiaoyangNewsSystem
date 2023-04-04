@@ -7,29 +7,26 @@
           <el-button type="primary" @click="edit()">新建{{ title }}</el-button>
         </slot>
         <slot name="dels" :title="title">
-          <el-button type="danger" @click="del(true)">批量删除</el-button>
+          <el-button type="danger" @click="del(null, true)">批量删除</el-button>
         </slot>
       </div>
     </div>
-    <!--
-        当某一行被点击时会触发该事件 @row-click
-        当选择项发生变化时会触发该事件 @selection-change
-       -->
+    <!-- 封装table组件 -->
     <el-table
       ref="tableRef"
-      :data="data"
+      :data="store.list"
       border
       stripe
       style="width: 100%"
       :header-cell-style="{ 'text-align': 'center' }"
       :cell-style="{ 'text-align': 'center' }"
       show-overflow-tooltip
-      @row-click="rowClick"
       @selection-change="handleSelectionChange"
     >
       <!-- 多选框 -->
       <el-table-column type="selection" width="55"> </el-table-column>
-      <template v-for="item in propList" :key="item.prop">
+      <!-- 开始遍历展示项 -->
+      <template v-for="(item, index) in propList" :key="item.prop">
         <el-table-column
           :sortable="item.sort"
           :prop="item.prop"
@@ -37,6 +34,7 @@
           show-overflow-tooltip
           :width="item.width"
         >
+          <!-- 展示项插槽 -->
           <template #default="scope">
             <slot :name="item.slotName" :row="scope.row">
               {{ scope.row[item.prop] }}
@@ -44,13 +42,16 @@
           </template>
         </el-table-column>
       </template>
+      <!-- 结束遍历展示项 -->
+      <!-- 配置项 -->
       <el-table-column prop="操作" label="操作" width="200">
+        <!-- 配置项插槽 -->
         <template #default="scope">
           <slot name="edit" :row="scope.row">
             <el-button type="primary" @click.stop="edit(scope.row)">编辑 </el-button>
           </slot>
           <slot name="del" :row="scope.row">
-            <el-button type="danger" @click.stop="del(false, scope.row)"> 删除 </el-button>
+            <el-button type="danger" @click.stop="del(scope.row)"> 删除 </el-button>
           </slot>
         </template>
       </el-table-column>
@@ -70,14 +71,20 @@
 </template>
 
 <script setup lang="ts">
-let selected: [] // 选中数据
+import { unify } from "@/service/api/unify"
+import { useTableStore } from "@/stores/table"
+const store = useTableStore()
+
 let page: {}
 let data: []
 interface Props {
   propList: Array<any> // 表头数据
   pages?: Object // 分页配置
-  title?: String
+  title?: String // 表标题名
+  name: string
 }
+
+const multipleSelection = ref()
 const props = withDefaults(defineProps<Props>(), {
   formDatas: () => {
     return {}
@@ -88,29 +95,22 @@ const props = withDefaults(defineProps<Props>(), {
   }
 })
 
-// 页面名称
-// name: {
-//   type: String,
-//   required: true
-// },
-
 //   onMounted(()=> {
-
 //     this.page = { ...this.pages }
-
 //     this.renew()
-
 //   })
 // 更新表
-const renew = async () => {}
+const renew = async () => {
+  store.name = props.name
+
+  store.saveList()
+}
+renew()
 // 当选择项发生变化时会触发该事件
 const handleSelectionChange = (val: any) => {
-  //   this.selected = val
+  multipleSelection.value = val
 }
-// 当某一行被点击时会触发该事件
-const rowClick = (row: any) => {
-  //   this.$refs.tableRef.toggleRowSelection(row)
-}
+
 // 分页数量事件
 const handleSizeChange = (pageSize: any) => {
   //   this.page.pageSize = pageSize
@@ -129,21 +129,29 @@ const edit = (row?: any) => {
   //   this.$bus.$emit("editClick", row)
   //   this.$store.commit("unify/saveVisible", true)
 }
-// 删除行
-const del = (selected?: any, row?: any) => {
-  //   this.$confirm("此操作将永久删除!", "提示", {
-  //     confirmButtonText: "确定",
-  //     cancelButtonText: "取消",
-  //     type: "warning"
-  //   })
-  //     .then(() => {
-  //       if (selected) {
-  //         this.selected.forEach((item) => {
-  //           this.delData(item)
-  //         })
-  //       } else this.delData(row)
-  //     })
-  //     .catch(() => {})
+
+let selected: [] // 选中数据
+// 点击按钮--删除行
+const del = (row?: any, flag?: any) => {
+  ElMessageBox.confirm("此操作将永久删除!", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning"
+  })
+    .then(() => {
+      if (flag) {
+        multipleSelection.value.forEach((row: any) => store.delList(row))
+      } else store.delList(row)
+    })
+    .catch(() => {})
+
+  //     if (selected) {
+  //       this.selected.forEach((item) => {
+  //         this.delData(item)
+  //       })
+  //     } else this.delData(row)
+
+  //   .catch(() => {})
 }
 // 实现删除操作
 const delData = async (row: any) => {
