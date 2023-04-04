@@ -1,8 +1,8 @@
 <template>
   <div class="news">
     <div class="header">
-      <div class="a">{{ title }}列表</div>
-      <div class="b">
+      <div class="title">{{ title }}列表</div>
+      <div class="btn">
         <slot name="newBtn" :title="title">
           <el-button type="primary" @click="edit()">新建{{ title }}</el-button>
         </slot>
@@ -72,6 +72,7 @@
 
 <script setup lang="ts">
 import { useTableStore } from "@/stores/table"
+const { proxy }: any = getCurrentInstance()
 
 type Props = {
   propList: Array<any> // 表头数据
@@ -119,19 +120,20 @@ const handleSizeChange = (val: number) => {
   store.page.pageIndex = 0
   store.saveList()
 }
-// // 分页页码事件
+// 分页页码事件
 const handleCurrentChange = (val: number) => {
   store.page.pageIndex = val - 1
   store.saveList()
 }
 // 操作行
 const edit = (row?: any) => {
-  //   this.$bus.$emit("editClick", row)
-  //   this.$store.commit("unify/saveVisible", true)
+  // 全局事件总线打开Modal组件
+  store.visible = true
+  proxy.$bus.emit("openModal", row)
 }
 
 // 删除行事件
-const del = (row?: any, flag?: any) => {
+const del = (row: any, flag?: any) => {
   ElMessageBox.confirm("此操作将永久删除!", "提示", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
@@ -154,14 +156,14 @@ const del = (row?: any, flag?: any) => {
 .header {
   position: relative;
   height: 60px;
-  .a {
+  .title {
     text-align: left;
     padding-left: 10px;
     line-height: 60px;
     font-size: 32px;
     font-weight: 700;
   }
-  .b {
+  .btn {
     position: absolute;
     top: 0;
     right: 0;

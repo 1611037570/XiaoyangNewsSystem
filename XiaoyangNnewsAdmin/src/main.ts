@@ -6,12 +6,23 @@ import piniaPluginPersist from "pinia-plugin-persist" //引入pinia数据持久�
 import "./assets/base.less"
 
 // console.log("import.meta.env :>> ", import.meta.env.VITE_BASE_URL)
+
+// 全局事件总线
+import mitt from "mitt"
+const Mit = mitt()
+declare module "vue" {
+  export interface ComponentCustomProperties {
+    emitter: typeof Mit
+  }
+}
+// 缓存
 import cache from "./utils/cache"
-import locale from "element-plus/lib/locale/lang/zh-cn"
+
+// ws
 import ScoketService from "./utils/ws"
 ScoketService.inStance.connect()
 const app = createApp(App)
-// app.use(ElementPlus, { locale })
+app.config.globalProperties.$bus = Mit
 app.config.globalProperties.$cache = cache
 app.use(createPinia().use(piniaPluginPersist))
 

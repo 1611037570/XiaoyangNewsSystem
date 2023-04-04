@@ -4,6 +4,7 @@ import { unify, unifyDel } from "@/service/api/unify"
 export const useTableStore = defineStore("table", {
   state() {
     return {
+      visible: false,
       list: [],
       name: "",
       total: 0,
@@ -11,7 +12,8 @@ export const useTableStore = defineStore("table", {
         pageSize: 1,
         pageIndex: 0
       },
-      search: {}
+      search: {},
+      modal: {}
     }
   },
 
@@ -33,7 +35,7 @@ export const useTableStore = defineStore("table", {
         }
       })
       if (res.code === 200 && res.data != null) this.total = res.data[0].rows
-      else ElMessage.error("表单长度请求失败")
+      else ElMessage.error("表单长度未请求到数据")
     },
 
     // 保存表单数据
@@ -46,7 +48,7 @@ export const useTableStore = defineStore("table", {
         }
       })
       if (res.code === 200 && res.data != null) this.list = res.data
-      else ElMessage.error("表单数据请求失败")
+      else ElMessage.error("表单数据未请求到数据")
     },
 
     // 删除表单数据
