@@ -56,7 +56,7 @@
               </template>
               <!-- 文本框 -->
               <template v-else-if="item.type === 'textarea'">
-                <el-form-item style="height: 120px">
+                <el-form-item style="width: 100%; height: 100%">
                   <el-input
                     type="textarea"
                     v-model="formData[`${item.prop}`]"
@@ -116,9 +116,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 let formData = reactive({ ...props.formDatas })
 const formRef = ref<FormInstance>()
-watch(formData, (newValue, oldValue) => {
-  console.log("值发生了变更", newValue, oldValue)
-})
 
 const validates = async () => {
   return await formRef.value?.validate((valid: boolean) => {

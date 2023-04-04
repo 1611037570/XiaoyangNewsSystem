@@ -16,7 +16,8 @@ export const useSystemStore = defineStore("system", {
       isCollapse: false,
       menu: [],
       user: {
-        role: null
+        role: null,
+        id: null
       }
     }
   },
@@ -25,7 +26,6 @@ export const useSystemStore = defineStore("system", {
       if (this.user.role == 1 || this.user.role == 0) {
         let res = await getMenu()
         this.menu = res.data
-        console.log("saveMenu完成 :>> ", this.menu)
       }
     }
   }

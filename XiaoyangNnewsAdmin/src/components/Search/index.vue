@@ -28,6 +28,7 @@ const reset = () => {
   for (let key in formRef.value.formData) {
     formRef.value.formData[key] = ""
   }
+  store.renewTbale()
 }
 // 搜索提交事件
 const select = async () => {

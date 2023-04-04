@@ -21,58 +21,90 @@
 </template>
 
 <script setup lang="ts">
+import { unify } from "@/service/api/unify"
 import { useTableStore } from "@/stores/table"
 const store = useTableStore()
 const { proxy }: any = getCurrentInstance()
 let formDatas = reactive({})
+let title = ref("")
 // 全局事件
 proxy.$bus.on("openModal", (row: any) => {
+  if (row) title.value = "修改"
+  else title.value = "新建"
   formDatas = row
 })
-
-let title = "hhhh"
-// this.$bus.$on("editClick", (row) => {
-//   this.formDatas = { ...row }
-// })
-// 销毁全局总线事件
-// beforeDestroy() {
-//   this.$bus.$off("editClick")
-// },
-
-// title() {
-//   if (Object.keys(this.formDatas).length !== 0) return "修改"
-//   else return "新建"
-// }
-
-// visible: {
-//   get() {
-//     return this.$store.getters["unify/getVisible"]
-//   },
-//   set() {
-//     this.$store.commit("unify/saveVisible", false)
-//     return false
-//   }
-// }
-// props: {
-//   // 表单配置
-//   formConfig: {
-//     type: Object
-//   },
-//   name: {},
-//   newCb: {
-//     type: String,
-//     default: "false"
-//   }
-// },
+onBeforeUnmount(() => {
+  proxy.$bus.off("openModal")
+})
 type Props = {
   formConfig: { [key: string]: any }
   newCb?: String
+  editCb?: String
 }
-
 const props = withDefaults(defineProps<Props>(), {})
+let formRef = ref()
+const emit = defineEmits(["newCb", "editCb"])
 // 编辑or新建操作
-const handle = async () => {}
-const exit = () => {}
+const handle = async () => {
+  // 是否有校验规则并且是否校验通过
+  if (props.formConfig.rules && !(await formRef.value.validates())) return
+  // 数据查重校验
+  if (!(await check())) return
+  // 是否自定义事件
+  if (props.newCb == "true") {
+    emit("newCb", { title: title.value, data: formRef.value.formData })
+    return
+  }
+  if (props.editCb == "true") {
+    emit("editCb", { title: title.value, data: formRef.value.formData })
+    return
+  }
+  // 提交操作
+  commit()
+}
+// 数据查重校验
+const check = async () => {
+  if (props.formConfig.check) {
+    let key: Array<string>[] = props.formConfig.check // 要检测的字段数组
+    let data = reactive({}) // 后端需求对象格式
+    key.forEach((k: any) => {
+      data[k] = formRef.value.formData[k].toString()
+    })
+    let res
+    // 严格模式查找数据
+    res = await unify({ name: store.name, strict: true, all: true, data })
+    // 新建操作 和单表处理
+    if (store.name == "nav" || title.value == "新建") {
+      if (res.code === 200) {
+        ElMessage.error("数据已存在！")
+        return false
+      }
+    } else {
+      if (res.code != 400) {
+        // 数据库字段编辑
+        let id: string
+        if (store.name == "news") id = "newsId"
+        else if (store.name == "note") id = "uid"
+        else id = "id"
+        // 数据存在
+        if (res.data[0][id] != formRef.value.formData[id]) {
+          ElMessage.error("数据已存在！")
+          return false
+        }
+      }
+    }
+  }
+  return true
+}
+// 提交操作
+const commit = () => {
+  store.modal = formRef.value.formData
+  store.commitList(title.value)
+}
+// 关闭组件事件
+const exit = () => {
+  store.visible = false
+}
 </script>
 
 <style lang="scss" scoped></style>

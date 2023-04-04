@@ -102,6 +102,7 @@ const props = withDefaults(defineProps<Props>(), {
 // 初始化数据
 const store = useTableStore()
 const multipleSelection = ref()
+console.log("props.name :>> ", props.name)
 store.name = props.name
 store.page = {
   pageIndex: props.pages.index,
@@ -127,7 +128,7 @@ const handleCurrentChange = (val: number) => {
 }
 // 操作行
 const edit = (row?: any) => {
-  // 全局事件总线打开Modal组件
+  // 全局事件打开Modal组件
   store.visible = true
   proxy.$bus.emit("openModal", row)
 }

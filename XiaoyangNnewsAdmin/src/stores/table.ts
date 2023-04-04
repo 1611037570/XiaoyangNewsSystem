@@ -1,6 +1,6 @@
 import { defineStore } from "pinia"
 
-import { unify, unifyDel } from "@/service/api/unify"
+import { unify, unifyAdd, unifyDel, unifyRenew } from "@/service/api/unify"
 export const useTableStore = defineStore("table", {
   state() {
     return {
@@ -64,8 +64,23 @@ export const useTableStore = defineStore("table", {
       let res = await unifyDel(config)
       if (res.code === 200) {
         ElMessage.success("删除成功")
-        this.saveList()
+        this.renewTbale()
       } else ElMessage.error("删除失败")
+    },
+
+    // 新建或更新表单数据
+    async commitList(title: string) {
+      let res
+      if (title == "新建") {
+        res = await unifyAdd({ name: this.name, data: this.modal })
+      } else {
+        res = await unifyRenew({ name: this.name, data: this.modal })
+      }
+      if (res.code === 200) {
+        ElMessage.success(title + "成功")
+        this.renewTbale()
+        this.visible = false
+      } else ElMessage.error(title + "失败")
     }
   }
 })

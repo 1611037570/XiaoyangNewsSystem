@@ -25,7 +25,22 @@ const router = createRouter({
         {
           path: "/main/nav",
           name: "nav",
-          component: () => import("@/views/main/nav/nav.vue")
+          component: () => import("@/views/system/nav/nav.vue")
+        },
+        {
+          path: "/main/user",
+          name: "user",
+          component: () => import("@/views/system/user/index.vue")
+        },
+        {
+          path: "/main/note",
+          name: "note",
+          component: () => import("@/views/system/note/index.vue")
+        },
+        {
+          path: "/main/news",
+          name: "news",
+          component: () => import("@/views/system/news/index.vue")
         }
       ]
     },
