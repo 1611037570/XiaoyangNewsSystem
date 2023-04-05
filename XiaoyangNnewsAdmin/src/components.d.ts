@@ -12,6 +12,7 @@ declare module '@vue/runtime-core' {
     Account: typeof import('./components/Login/account.vue')['default']
     BarEchart: typeof import('./components/Echarts/src/BarEchart.vue')['default']
     copy: typeof import("./components/Echarts/src/RoseEchart.vue")["default"]
+    Editor: typeof import('./components/Editor/index.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
