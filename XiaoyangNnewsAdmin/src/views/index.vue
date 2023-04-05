@@ -10,11 +10,9 @@
         <Header></Header>
       </el-header>
       <el-main>
-        <div class="main">
-          <Suspense>
-            <router-view></router-view>
-          </Suspense>
-        </div>
+        <Suspense>
+          <router-view></router-view>
+        </Suspense>
       </el-main>
     </el-container>
   </el-container>
