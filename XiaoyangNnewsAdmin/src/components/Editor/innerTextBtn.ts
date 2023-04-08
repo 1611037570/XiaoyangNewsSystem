@@ -1,4 +1,5 @@
 import type { IButtonMenu, IDomEditor } from "@wangeditor/editor"
+import { innerText } from "./innerText"
 class MyButtonMenu implements IButtonMenu {
   constructor() {
     this.title = "插入文字" // 自定义菜单标题
@@ -7,15 +8,12 @@ class MyButtonMenu implements IButtonMenu {
   }
   title: string
   iconSvg?: string | undefined
-  hotkey?: string | undefined
-  alwaysEnable?: boolean | undefined
   tag: string
-  width?: number | undefined
 
   // 获取菜单执行时的 value ，用不到则返回空 字符串或 false
   getValue(editor: IDomEditor): string | boolean {
     // TS 语法
-    return " hello "
+    return false
   }
 
   // 菜单是否需要激活（如选中加粗文本，“加粗”菜单会激活），用不到则返回 false
@@ -31,11 +29,11 @@ class MyButtonMenu implements IButtonMenu {
   // 点击菜单时触发的函数
   exec(editor: IDomEditor, value: any) {
     if (this.isDisabled(editor)) return
-    editor.insertText(value) // value 即 this.value(editor) 的返回值
+    innerText(editor)
   }
 }
-const menu1Conf = {
-  key: "menu2", // 定义 menu key ：要保证唯一、不重复（重要）
+export const innerTextBtn = {
+  key: "innerTextBtn", // 定义 menu key ：要保证唯一、不重复（重要）
   factory() {
     return new MyButtonMenu() // 把 `YourMenuClass` 替换为你菜单的 class
   }

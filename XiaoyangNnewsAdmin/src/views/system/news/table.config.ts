@@ -16,5 +16,5 @@ export const tableConfig = {
     },
     { prop: "title", label: "分类" }
   ],
-  pages: { pageIndex: 0, pageSize: 5, pageSizes: [5, 10, 15, 20] }
+  pages: { index: 0, size: 5, pageSizes: [5, 10, 15, 20] }
 }

@@ -34,21 +34,19 @@
 <script setup lang="ts">
 import { tableConfig } from "./table.config.js"
 import { searchConfig } from "./search.config.js"
-
+import { useRouter } from "vue-router"
+const router = useRouter()
 const edit = (row?: any) => {
   if (row == undefined) {
-    // let routeUrl = this.$router.resolve({
-    //   path: "/addnews"
-    // })
-    // window.open(routeUrl.href, "_blank")
+    router.push({
+      path: "/main/add"
+    })
     return
   }
-  // const routeUrl = this.$router.resolve({
-  //   path: "/addnews",
-  //   query: { newsId: row.newsId }
-  // })
-  // window.open(routeUrl.href, "_blank")
-  // }
+  router.push({
+    path: "/main/add",
+    query: { newsId: row.newsId }
+  })
 }
 </script>
 

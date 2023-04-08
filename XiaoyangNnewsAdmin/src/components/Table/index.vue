@@ -102,7 +102,6 @@ const props = withDefaults(defineProps<Props>(), {
 // 初始化数据
 const store = useTableStore()
 const multipleSelection = ref()
-console.log("props.name :>> ", props.name)
 store.name = props.name
 store.page = {
   pageIndex: props.pages.index,

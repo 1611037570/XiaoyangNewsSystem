@@ -39,9 +39,10 @@ const store = useSystemStore()
   :deep(.el-main) {
     box-sizing: border-box;
     height: 100%;
-    border: 1px solid red;
     padding: 10px;
     background-color: #f5efe9;
+    scrollbar-width: none;
+    overflow: hidden;
   }
 }
 </style>
