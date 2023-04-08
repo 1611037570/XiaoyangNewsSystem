@@ -1,37 +1,8 @@
-<template>
-  <el-container class="controller">
-    <el-aside :style="{ width: store.isCollapse == true ? '65px' : '200px' }">
-      <Suspense>
-        <Menu></Menu>
-      </Suspense>
-    </el-aside>
-    <el-container>
-      <el-header>
-        <Header></Header>
-      </el-header>
-      <el-main>
-        <Suspense>
-          <router-view></router-view>
-        </Suspense>
-      </el-main>
-    </el-container>
-  </el-container>
-</template>
-
-<script setup lang="ts">
-import Menu from "@/components/Menus/index.vue"
-import Header from "@/components/Header/index.vue"
-import { useSystemStore } from "@/stores/system"
-import { innerTextBtn } from "@/components/Editor/innerTextBtn.js"
-import { Boot } from "@wangeditor/editor"
 import type { IButtonMenu, IDomEditor } from "@wangeditor/editor"
 import { getCurrentInstance } from "vue"
 
 const { proxy }: any = getCurrentInstance()
-/*
- * 这一大坨代码目前不会优化
- * 二、innerImgClick需要参数，已getvalue可以获取参数，问题在于不会传
- */
+console.log("object :>> ", proxy)
 class MyButtonMenu implements IButtonMenu {
   constructor() {
     this.title = "插入图片" // 自定义菜单标题
@@ -53,39 +24,15 @@ class MyButtonMenu implements IButtonMenu {
   // 点击菜单时触发的函数
   exec(editor: IDomEditor, value: any) {
     if (this.isDisabled(editor)) return
-    proxy.$bus.emit("innerImgClick")
+
+    console.log("object :>> ", proxy)
+    // const { proxy }: any = getCurrentInstance()
+    // proxy.$bus.emit("openModal")
   }
 }
-const inImgBtn = {
-  key: "inImgBtn",
+const inImg = {
+  key: "inImg",
   factory() {
     return new MyButtonMenu()
   }
 }
-
-Boot.registerMenu(innerTextBtn)
-Boot.registerMenu(inImgBtn)
-const store = useSystemStore()
-</script>
-
-<style lang="less" scoped>
-.controller {
-  transition: all 0.5s linear;
-  height: 100%;
-  :deep(.el-header) {
-    padding: 0;
-  }
-
-  :deep(.el-aside) {
-    transition: width 1s;
-  }
-  :deep(.el-main) {
-    box-sizing: border-box;
-    height: 100%;
-    padding: 10px;
-    background-color: #f5efe9;
-    scrollbar-width: none;
-    overflow: hidden;
-  }
-}
-</style>

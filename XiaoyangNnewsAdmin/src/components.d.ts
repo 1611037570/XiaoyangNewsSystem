@@ -10,6 +10,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Account: typeof import('./components/Login/account.vue')['default']
+    AtionBar: typeof import('./components/AtionBar/index.vue')['default']
     BarEchart: typeof import('./components/Echarts/src/BarEchart.vue')['default']
     copy: typeof import('./components/Editor/index copy.vue')['default']
     Editor: typeof import('./components/Editor/index.vue')['default']
