@@ -12,7 +12,6 @@
           </keep-alive>
         </transition>
       </el-tabs>
-
       <el-button class="login" @click="login">登录</el-button>
     </div>
   </div>

@@ -34,11 +34,13 @@ export const useTableStore = defineStore("table", {
           uid: id
         }
       }
-      let res = await unify({
+      let res
+      res = await unify({
         name: this.name,
         conut: true,
         data
       })
+
       if (res.code === 200 && res.data != null) this.total = res.data[0].rows
       else ElMessage.error("表单长度未请求到数据")
       res = await unify({
@@ -64,6 +66,7 @@ export const useTableStore = defineStore("table", {
       if (res.code === 200) {
         ElMessage.success("删除成功")
         this.renewTbale()
+        return true
       } else ElMessage.error("删除失败")
     },
 

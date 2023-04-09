@@ -5,7 +5,7 @@ export const isRepeat = async (data: any, ok: any, title: string) => {
   let res
   res = await unify({ name: store.name, strict: true, all: true, data })
   // 新建操作 和单表处理
-  if (store.name == "nav" || title == "新建") {
+  if (title == "新建") {
     if (res.code === 200) return false
   } else {
     if (res.code != 400) {

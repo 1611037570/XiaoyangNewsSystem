@@ -12,9 +12,12 @@ import { tableConfig } from "./table.config.js"
 import { searchConfig } from "./search.config.js"
 import { formConfig } from "./form.config.js"
 import { unifyAdd, unifyRenew } from "@/service/api/unify"
+
 // pinia模块
 import { useSystemStore } from "@/stores/system"
 import { useTableStore } from "@/stores/table"
+
+const { proxy }: any = getCurrentInstance()
 const system = useSystemStore()
 const table = useTableStore()
 // 回调函数
@@ -31,6 +34,12 @@ const callback = async (datas: any) => {
   else res = await unifyRenew(config)
   if (res.code === 200) {
     ElMessage.success(title + "成功")
+    if (title == "新建") {
+      proxy.$socket.send({
+        action: "get",
+        socketType: "renewEchart"
+      })
+    }
     table.renewTbale()
     table.visible = false
   } else ElMessage.error(title + "失败")

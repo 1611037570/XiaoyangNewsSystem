@@ -41,8 +41,6 @@ const store = useSystemStore()
     height: 100%;
     padding: 10px;
     background-color: #f5efe9;
-    scrollbar-width: none;
-    overflow: hidden;
   }
 }
 </style>

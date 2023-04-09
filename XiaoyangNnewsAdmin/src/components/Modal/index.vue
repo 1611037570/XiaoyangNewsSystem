@@ -82,6 +82,10 @@ const check = async () => {
 
 // 提交操作
 const commit = () => {
+  proxy.$socket.send({
+    action: "get",
+    socketType: "renewEchart"
+  })
   store.modal = formRef.value.formData
   store.commitList(title.value)
 }

@@ -57,7 +57,6 @@ const { proxy }: any = getCurrentInstance()
 const store = useSystemStore()
 const router = useRouter()
 const exit = () => {
-  store.menu = []
   store.user = { role: null, id: null, name: "" }
   proxy.$cache.clear()
   router.push({

@@ -35,6 +35,7 @@
 import { tableConfig } from "./table.config.js"
 import { searchConfig } from "./search.config.js"
 import { useRouter } from "vue-router"
+
 const router = useRouter()
 const edit = (row?: any) => {
   if (row == undefined) {

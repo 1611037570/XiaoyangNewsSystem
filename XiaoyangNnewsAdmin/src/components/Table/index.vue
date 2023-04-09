@@ -139,10 +139,18 @@ const del = (row: any, flag?: any) => {
     cancelButtonText: "取消",
     type: "warning"
   })
-    .then(() => {
+    .then(async () => {
+      let is = false
+      let arr: any = reactive([])
       if (flag) {
-        multipleSelection.value.forEach((row: any) => store.delList(row))
-      } else store.delList(row)
+        multipleSelection.value.forEach((row: any) => arr.push(store.delList(row)))
+      } else arr.push(store.delList(row))
+      if (arr[0]) {
+        proxy.$socket.send({
+          action: "get",
+          socketType: "renewEchart"
+        })
+      }
     })
     .catch(() => {})
 }

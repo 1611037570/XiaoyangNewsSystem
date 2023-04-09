@@ -13,7 +13,6 @@ export const useSystemStore = defineStore("system", {
   state() {
     return {
       isCollapse: false,
-
       user: {
         role: null,
         id: null,

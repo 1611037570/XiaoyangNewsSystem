@@ -17,6 +17,8 @@
 import { BarEchart, PieEchart, RoseEchart } from "@/components/Echarts/"
 import { getCensus } from "@/service/api/show"
 import { unify } from "@/service/api/unify"
+import { getCurrentInstance } from "vue"
+const { proxy }: any = getCurrentInstance()
 
 const census = async () => {
   let res = await getCensus()
@@ -133,6 +135,20 @@ setTimeout(async () => {
   censusData.value = await census()
   userData.value = await user()
 }, 1000)
+
+// 这里可以细分为每一个表单执行一次，偷懒就不分出去咯
+const renewEchart = async (data?: any) => {
+  noteData.value = await pie("note", "name", "文案总数")
+  navData.value = await pie("nav", "title", "分类总数")
+  newsData.value = await pie("news", "title", "新闻总数")
+}
+
+renewEchart()
+proxy.$socket.registerCallBack("renewEchart", renewEchart)
+
+onBeforeUnmount(() => {
+  proxy.$socket.unRegisterCallBack("renewEchart")
+})
 </script>
 
 <style lang="less" scoped>

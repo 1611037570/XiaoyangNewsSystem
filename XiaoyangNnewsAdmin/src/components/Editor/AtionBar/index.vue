@@ -31,10 +31,9 @@ import { useTableStore } from "@/stores/table"
 import { useRoute } from "vue-router"
 import dayjs from "dayjs"
 import { add, edit } from "@/service/api/edtior"
-
 import { isRepeat } from "@/utils/isRepeat"
 const props = defineProps(["text"])
-
+const { proxy }: any = getCurrentInstance()
 const emit = defineEmits(["update:text"])
 
 // 分类数据请求和格式化
@@ -123,8 +122,13 @@ const addNews = async (data: any) => {
       data
     })
   }
-  if (res.code === 200) ElMessage.success(flag + "新闻成功！")
-  else ElMessage.error(flag + "新闻失败！")
+  if (res.code === 200) {
+    ElMessage.success(flag + "新闻成功！")
+    proxy.$socket.send({
+      action: "get",
+      socketType: "renewEchart"
+    })
+  } else ElMessage.error(flag + "新闻失败！")
 }
 </script>
 
