@@ -72,6 +72,7 @@
 
 <script setup lang="ts">
 import { useTableStore } from "@/stores/table"
+import { getCurrentInstance, ref, reactive } from "vue"
 const { proxy }: any = getCurrentInstance()
 
 type Props = {

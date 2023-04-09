@@ -10,6 +10,7 @@ import { login } from "@/service/api/system"
 import { loginConfig } from "./account.config.js"
 import { useSystemStore } from "@/stores/system"
 import { useRouter } from "vue-router"
+import { getCurrentInstance, ref } from "vue"
 
 const { proxy }: any = getCurrentInstance()
 const store = useSystemStore()

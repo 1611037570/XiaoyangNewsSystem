@@ -3,9 +3,9 @@
 </template>
 
 <script setup lang="ts">
+import { computed, onMounted, watch } from "vue"
 import { getId, MyChart } from "./mixin"
 let id = getId()
-// let id = snowflakeIdv1.NextId().toString()
 type Props = {
   text?: string // 标题
   data: Array<any> // 数据

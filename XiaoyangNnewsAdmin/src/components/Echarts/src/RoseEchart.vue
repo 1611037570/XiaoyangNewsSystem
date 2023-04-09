@@ -3,6 +3,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed, onMounted, watch } from "vue"
 import { getId, MyChart } from "./mixin"
 let id = getId()
 interface Props {

@@ -11,6 +11,9 @@
 </template>
 
 <script setup lang="ts">
+import Search from "@/components/Search/index.vue"
+import Table from "@/components/Table/index.vue"
+import Modal from "@/components/Modal/index.vue"
 import { tableConfig } from "./table.config.js"
 import { searchConfig } from "./search.config.js"
 import { formConfig } from "./form.config.js"

@@ -17,7 +17,7 @@
 import { BarEchart, PieEchart, RoseEchart } from "@/components/Echarts/"
 import { getCensus } from "@/service/api/show"
 import { unify } from "@/service/api/unify"
-import { getCurrentInstance } from "vue"
+import { getCurrentInstance, onBeforeUnmount, shallowRef } from "vue"
 const { proxy }: any = getCurrentInstance()
 
 const census = async () => {

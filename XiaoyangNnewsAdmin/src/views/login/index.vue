@@ -21,6 +21,7 @@ import "animate.css"
 import Account from "@/components/Login/account.vue"
 import Phone from "@/components/Login/phone.vue"
 import type { TabsPaneContext } from "element-plus"
+import { ref } from "vue"
 
 const activeName = ref("account")
 const current = ref<boolean>(true)

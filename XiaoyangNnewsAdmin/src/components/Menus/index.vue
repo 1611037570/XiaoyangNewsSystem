@@ -33,6 +33,7 @@
 import type Menus from "./type"
 import { useSystemStore } from "@/stores/system"
 import { getMenu } from "@/service/api/system"
+import { reactive } from "vue"
 const store = useSystemStore()
 let menus: Menus[] = reactive([])
 if (store.user.role == 1 || store.user.role == 0) {

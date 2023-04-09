@@ -16,6 +16,7 @@ import { unifyAdd, unifyRenew } from "@/service/api/unify"
 // pinia模块
 import { useSystemStore } from "@/stores/system"
 import { useTableStore } from "@/stores/table"
+import { getCurrentInstance } from "vue"
 
 const { proxy }: any = getCurrentInstance()
 const system = useSystemStore()

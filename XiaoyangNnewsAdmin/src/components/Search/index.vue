@@ -14,6 +14,7 @@
 <script setup lang="ts">
 import Form from "@/components/Form/index.vue"
 import { useTableStore } from "@/stores/table"
+import { ref } from "vue"
 const store = useTableStore()
 type Props = {
   searchConfig: { [key: string]: any }

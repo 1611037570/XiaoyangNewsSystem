@@ -1,5 +1,5 @@
 <template>
-  <div class="box" style="border: 1px solid #ccc">
+  <div class="boxs">
     <input style="display: none" ref="fileRef" type="file" name="" id="" />
     <Toolbar
       style="border-bottom: 1px solid #ccc"
@@ -10,7 +10,7 @@
     <AtionBar v-model:text="text"></AtionBar>
     <Editor
       class="editor"
-      style="max-height: 100%; height: 80%; overflow-y: hidden"
+      style="max-height: 100%; height: 50%; overflow-y: hidden"
       v-model="text"
       :defaultConfig="editorConfig"
       :mode="mode"
@@ -26,6 +26,7 @@ import { Editor, Toolbar } from "@wangeditor/editor-for-vue"
 import { toolbarKeys, editorConfig, mode } from "./config.js"
 // 自定义引入
 import { innerImg } from "./innerImg.js"
+import { getCurrentInstance, onBeforeUnmount, ref, shallowRef } from "vue"
 
 const { proxy }: any = getCurrentInstance()
 // 全局事件
@@ -69,11 +70,9 @@ onBeforeUnmount(() => {
 })
 </script>
 <style lang="less" scoped>
-.box {
-  border: 22px solid;
+.boxs {
   width: 100%;
   height: 100%;
-  z-index: 1;
 }
 .editor {
   height: 100%;

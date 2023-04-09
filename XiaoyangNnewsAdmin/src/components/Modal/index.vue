@@ -23,6 +23,7 @@
 <script setup lang="ts">
 import { useTableStore } from "@/stores/table"
 import { isRepeat } from "@/utils/isRepeat"
+import { getCurrentInstance, reactive, ref, onBeforeUnmount } from "vue"
 const store = useTableStore()
 const { proxy }: any = getCurrentInstance()
 let formDatas = reactive({})

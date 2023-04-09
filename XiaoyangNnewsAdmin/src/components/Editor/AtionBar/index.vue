@@ -1,5 +1,6 @@
 <template>
   <div class="ation">
+    <!-- 分类和按钮 -->
     <div class="box">
       <div class="l">
         <Form v-bind="config" ref="formRef" :formDatas="formDatas" @formDataUp="formDataUp()">
@@ -9,6 +10,7 @@
         <el-button class="btn" type="primary" @click="check()">{{ flag }}新闻</el-button>
       </div>
     </div>
+    <!-- 标题部分 -->
     <div class="title">
       <Form v-bind="titleConfig" ref="titleRef">
         <template #lSlot>
@@ -37,7 +39,6 @@ const { proxy }: any = getCurrentInstance()
 const emit = defineEmits(["update:text"])
 
 // 分类数据请求和格式化
-
 let config = reactive(formConfig)
 let navArr: any = []
 let res = await unify({
@@ -81,15 +82,17 @@ const formDataUp = () => {
   editor.compress = formRef.value.formData.compress
 }
 
+// 为添加编辑功能做初始化变量
 const system = useSystemStore()
 const table = useTableStore()
 table.name = "news"
-
 let uid = system.user.id
+// 检查是否合格
 const check = async () => {
   let { text } = toRefs(props)
   let { nid } = formRef.value.formData
   let { title } = titleRef.value.formData
+  // 判断
   let time = dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")
   if (uid == undefined || uid == null) return ElMessage.error("账号信息错误")
   if (nid == undefined) return ElMessage.error("未选择分类")
@@ -105,9 +108,10 @@ const check = async () => {
     nid
   })
 }
-
+// 添加或编辑新闻
 const addNews = async (data: any) => {
   let res
+  // 请求配置
   if (flag == "新建") {
     data.heat = 0
     data.uid = uid
@@ -123,6 +127,7 @@ const addNews = async (data: any) => {
     })
   }
   if (res.code === 200) {
+    // 操作成功
     ElMessage.success(flag + "新闻成功！")
     proxy.$socket.send({
       action: "get",
