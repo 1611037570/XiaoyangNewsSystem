@@ -20,12 +20,17 @@ npm install
 npm run serve
 ```
 
-## newsAdmin后台管理系统已完成
+## newsAdmin后台管理系统
 
 安装依赖
 
 ```powershell
 npm install
+```
+修改配置
+
+```
+XiaoyangNewsServer/db/index.js
 ```
 
 启动项目
@@ -34,7 +39,7 @@ npm install
 npm run serve
 ```
 
-## newsApp用户新闻前台已完成
+## newsApp用户新闻前台
 
 安装依赖
 
