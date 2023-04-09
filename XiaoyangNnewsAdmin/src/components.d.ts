@@ -9,9 +9,11 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    A: typeof import('./components/Header/a/index.vue')['default']
     Account: typeof import('./components/Login/account.vue')['default']
     AtionBar: typeof import('./components/Editor/AtionBar/index.vue')['default']
     BarEchart: typeof import('./components/Echarts/src/BarEchart.vue')['default']
+    Dropdown: typeof import('./components/Header/Dropdown/index.vue')['default']
     Editor: typeof import('./components/Editor/index.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
@@ -30,6 +32,7 @@ declare module '@vue/runtime-core' {
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
@@ -42,6 +45,8 @@ declare module '@vue/runtime-core' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    ElTabPane: typeof import('element-plus/es')['ElTabPane']
+    ElTabs: typeof import('element-plus/es')['ElTabs']
     Form: typeof import('./components/Form/index.vue')['default']
     Header: typeof import('./components/Header/index.vue')['default']
     IEpExpand: typeof import('~icons/ep/expand')['default']
@@ -55,6 +60,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Search: typeof import('./components/Search/index.vue')['default']
+    Tab: typeof import('./components/Header/Tab/index.vue')['default']
     Table: typeof import('./components/Table/index.vue')['default']
   }
 }

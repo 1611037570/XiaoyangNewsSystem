@@ -1,4 +1,5 @@
 <template>
+  <Tab></Tab>
   <el-container class="controller">
     <el-aside :style="{ width: store.isCollapse == true ? '65px' : '200px' }">
       <Suspense>

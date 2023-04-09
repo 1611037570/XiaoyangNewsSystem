@@ -123,24 +123,22 @@ const pie = async (name: string, flag: string, text?: string) => {
 let noteData = shallowRef<any>(await pie("note", "name", "文案总数"))
 let navData = shallowRef<any>(await pie("nav", "title", "分类总数"))
 let newsData = shallowRef<any>(await pie("news", "title", "新闻总数"))
-let userData = shallowRef<any>({
-  data: []
-})
+let userData = shallowRef<any>({ data: [] })
 let allData = shallowRef<any>(await all())
-let censusData = shallowRef<any>({
-  data: []
-})
+let censusData = shallowRef<any>({ data: [] })
 
 setTimeout(async () => {
   censusData.value = await census()
   userData.value = await user()
 }, 1000)
 
-// 这里可以细分为每一个表单执行一次，偷懒就不分出去咯
+// 这里可以细分为某个表更新，这里偷懒就不分出去咯
 const renewEchart = async (data?: any) => {
   noteData.value = await pie("note", "name", "文案总数")
   navData.value = await pie("nav", "title", "分类总数")
   newsData.value = await pie("news", "title", "新闻总数")
+  censusData.value = await census()
+  userData.value = await user()
 }
 
 renewEchart()

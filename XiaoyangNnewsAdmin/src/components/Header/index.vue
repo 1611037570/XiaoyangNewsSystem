@@ -21,29 +21,16 @@
       </div>
       <!-- 子菜单 -->
       <div>
-        <el-breadcrumb separator="/">
-          <el-breadcrumb-item>promotion management</el-breadcrumb-item>
-          <el-breadcrumb-item to="{ path: '/' }">promotion list</el-breadcrumb-item>
-        </el-breadcrumb>
+        <Tab></Tab>
+        <!-- <el-breadcrumb separator="/">
+          <el-breadcrumb-item to="{path:'/'}">promotion management</el-breadcrumb-item>
+          <el-breadcrumb-item>{{ store.breadcrumb.name }}</el-breadcrumb-item>
+        </el-breadcrumb> -->
       </div>
     </div>
 
     <div class="">
-      <el-dropdown>
-        <span class="info">
-          <el-avatar
-            src="https://upload.jianshu.io/users/upload_avatars/1102036/c3628b478f06.jpeg"
-          ></el-avatar>
-          <span class="name">{{ store.user.name }}</span>
-        </span>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item>个人信息</el-dropdown-item>
-            <el-dropdown-item divided>修改密码</el-dropdown-item>
-            <el-dropdown-item divided @click="exit()">退出系统</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+      <Dropdown></Dropdown>
     </div>
   </div>
 </template>
@@ -51,18 +38,8 @@
 <script setup lang="ts">
 import "animate.css"
 import { useSystemStore } from "@/stores/system"
-import { useRouter } from "vue-router"
-import { getCurrentInstance } from "vue"
-const { proxy }: any = getCurrentInstance()
+
 const store = useSystemStore()
-const router = useRouter()
-const exit = () => {
-  store.user = { role: null, id: null, name: "" }
-  proxy.$cache.clear()
-  router.push({
-    path: "/login"
-  })
-}
 </script>
 
 <style lang="less" scoped>
@@ -87,19 +64,6 @@ const exit = () => {
     }
     .breadcrumb {
       font-size: 120px !important;
-    }
-  }
-  .info {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    :deep(.el-dropdown) {
-      border: 0;
-      outline: none !important;
-    }
-    .name {
-      margin-left: 8px;
-      font-size: 16px;
     }
   }
 }

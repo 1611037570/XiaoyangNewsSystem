@@ -17,6 +17,10 @@ export const useSystemStore = defineStore("system", {
         role: null,
         id: null,
         name: ""
+      },
+      tab: {
+        name: "",
+        path: ""
       }
     }
   },

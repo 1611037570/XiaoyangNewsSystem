@@ -14,7 +14,7 @@
           </template>
           <!-- 二级菜单 -->
           <el-menu-item-group>
-            <el-menu-item v-for="m in menu.children" :index="m.path" :key="m.id">
+            <el-menu-item v-for="m in menu.children" :index="m.path" :key="m.id" @click="click(m)">
               {{ m.name }}
             </el-menu-item>
           </el-menu-item-group>
@@ -41,6 +41,10 @@ if (store.user.role == 1 || store.user.role == 0) {
     id: store.user.id
   })
   menus = res.data
+}
+
+const click = (m: any) => {
+  store.tab = m
 }
 </script>
 
