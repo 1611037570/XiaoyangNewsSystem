@@ -16,7 +16,8 @@
       <el-row :gutter="20">
         <!-- 根据配置动态添加 -->
         <template v-for="item in formItems">
-          <el-col v-bind="colLayout">
+          <el-col v-bind="colLayout" class="inputbox">
+            <slot :name="item.lSlot"> </slot>
             <el-form-item
               v-if="!item.display"
               :label="item.label"
@@ -24,6 +25,7 @@
               :prop="item.prop"
               :style="itemStyle"
               :key="item.prop"
+              style="flex: 1"
             >
               <!-- 输入框 和 密码框 -->
               <template v-if="item.type === 'input' || item.type === 'password'">
@@ -63,6 +65,7 @@
                   ></el-input> </el-form-item
               ></template>
             </el-form-item>
+            <slot :name="item.rSlot"> </slot>
           </el-col>
         </template>
       </el-row>
@@ -76,20 +79,14 @@
 
 <script setup lang="ts">
 import type { FormInstance, FormRules } from "element-plus"
-
+import { defineEmits } from "vue"
 interface Props {
-  // 表单数据
-  formDatas?: Object
-  // 表单框数据
-  formItems?: Array<any>
-  // 表单校验规则
-  rules?: FormRules
-  // label宽度
-  labelWidth?: string
-  //   item样式
-  itemStyle?: Object
-  // 行排列大小
-  colLayout?: Object
+  formDatas?: Object // 表单数据
+  formItems?: Array<any> // 表单框数据
+  rules?: FormRules // 表单校验规则
+  labelWidth?: string // label宽度
+  itemStyle?: Object | string //   item样式
+  colLayout?: Object // 行排列大小
 }
 const props = withDefaults(defineProps<Props>(), {
   formDatas: () => {
@@ -111,10 +108,17 @@ const props = withDefaults(defineProps<Props>(), {
   itemStyle: () => {
     return {}
   },
-  labelWidth: ""
+  labelWidth: "80px"
 })
-
+const emit = defineEmits(["formDataUp"])
 let formData = reactive({ ...props.formDatas })
+watch(
+  formData,
+  (newValue, oldValue) => {
+    emit("formDataUp", newValue)
+  },
+  { deep: true }
+)
 const formRef = ref<FormInstance>()
 
 const validates = async () => {
@@ -130,6 +134,11 @@ defineExpose({
 </script>
 
 <style lang="less">
+.inputbox {
+  width: 100%;
+  display: flex !important;
+  align-items: center;
+}
 .el-form-item__error {
   left: 50% !important;
 

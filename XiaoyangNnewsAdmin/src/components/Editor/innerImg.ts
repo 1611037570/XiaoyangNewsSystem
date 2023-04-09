@@ -1,3 +1,5 @@
+import { useEdtiorStore } from "@/stores/editor"
+const store = useEdtiorStore()
 export const innerImg = async (file: Blob) => {
   if (!validateFile(file)) return // 文件检查
   let image = await transformIamge(file) // 获取文件图片
@@ -67,8 +69,6 @@ const compressIamge = (file: { width: any; height: any; image: any } | any) => {
     sizeRatio = height / maxHeight
     maxWidth = width / sizeRatio
   }
-  console.log(" maxWidth>> ", maxWidth)
-  console.log(" maxHeight>> ", maxHeight)
   // 如果不需要压缩
   if (!compressFlag) {
     maxWidth = width
@@ -85,7 +85,8 @@ const compressIamge = (file: { width: any; height: any; image: any } | any) => {
 const base64Iamge = (file: { width: number; height: number; image: any } | any) => {
   let { width, height, image } = file
   // 创建canvas
-  const COMPRESSRATIO = 0.65 // 压缩比例 0 - 1
+  const COMPRESSRATIO = store.compress // 压缩比例 0 - 1
+  console.log("COMPRESSRATIO :>> ", COMPRESSRATIO)
   const canvas = document.createElement("canvas")
   const ctx = canvas.getContext("2d")
   canvas.setAttribute("id", "canvas")

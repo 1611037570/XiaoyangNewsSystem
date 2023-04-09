@@ -21,8 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import { unify } from "@/service/api/unify"
 import { useTableStore } from "@/stores/table"
+import { isRepeat } from "@/utils/isRepeat"
 const store = useTableStore()
 const { proxy }: any = getCurrentInstance()
 let formDatas = reactive({})
@@ -70,32 +70,16 @@ const check = async () => {
     key.forEach((k: any) => {
       data[k] = formRef.value.formData[k].toString()
     })
-    let res
-    // 严格模式查找数据
-    res = await unify({ name: store.name, strict: true, all: true, data })
-    // 新建操作 和单表处理
-    if (store.name == "nav" || title.value == "新建") {
-      if (res.code === 200) {
-        ElMessage.error("数据已存在！")
-        return false
-      }
-    } else {
-      if (res.code != 400) {
-        // 数据库字段编辑
-        let id: string
-        if (store.name == "news") id = "newsId"
-        else if (store.name == "note") id = "uid"
-        else id = "id"
-        // 数据存在
-        if (res.data[0][id] != formRef.value.formData[id]) {
-          ElMessage.error("数据已存在！")
-          return false
-        }
-      }
+    let res = await isRepeat(data, formRef.value.formData, title.value)
+    if (!res) {
+      ElMessage.error("数据已存在！")
+      return false
     }
+    // 严格模式查找数据
   }
   return true
 }
+
 // 提交操作
 const commit = () => {
   store.modal = formRef.value.formData

@@ -1,5 +1,4 @@
 export const loginConfig = {
-  pageName: "users",
   formItems: [
     {
       prop: "phone",

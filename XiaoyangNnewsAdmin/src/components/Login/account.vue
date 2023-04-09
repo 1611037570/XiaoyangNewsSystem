@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import Form from "@/components/Form/index.vue"
 import { login } from "@/service/api/system"
-import { loginConfig } from "./account.js"
+import { loginConfig } from "./account.config.js"
 import { useSystemStore } from "@/stores/system"
 import { useRouter } from "vue-router"
 

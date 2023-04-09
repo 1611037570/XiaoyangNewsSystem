@@ -1,5 +1,4 @@
 export const searchConfig = {
-  pageName: "users",
   formItems: [
     {
       prop: "newsId",

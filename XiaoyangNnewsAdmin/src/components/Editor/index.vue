@@ -7,7 +7,7 @@
       :defaultConfig="toolbarConfig"
       :mode="mode"
     />
-    <AtionBar></AtionBar>
+    <AtionBar v-model:text="text"></AtionBar>
     <Editor
       class="editor"
       style="max-height: 100%; height: 80%; overflow-y: hidden"
@@ -24,19 +24,13 @@
 import "@wangeditor/editor/dist/css/style.css"
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue"
 import { toolbarKeys, editorConfig, mode } from "./config.js"
-// import { inImg } from "./innerImgBtn"
 // 自定义引入
 import { innerImg } from "./innerImg.js"
-import { useRoute } from "vue-router"
-import { unify } from "@/service/api/unify"
 
 const { proxy }: any = getCurrentInstance()
 // 全局事件
 proxy.$bus.on("innerImgClick", (row: any) => {
   innerImgClick()
-})
-onBeforeUnmount(() => {
-  proxy.$bus.off("innerImgClick")
 })
 // 菜单配置
 const toolbarConfig = {
@@ -47,21 +41,7 @@ const editorRef = shallowRef() // 编辑器实例，必须用 shallowRef
 
 // 初始化内容操作
 const text = ref("") // 内容 HTML
-const route = useRoute() // 路由
-let newsId // 新闻ID
-if (route.query.newsId) {
-  // 编辑模式
-  newsId = route.query.newsId
-  let res = await unify({
-    name: "news",
-    strict: true,
-    data: { newsId }
-  })
-  if (res.code !== 200) ElMessage.error("获取新闻信息错误请重试")
-  text.value = res.data[0].text
-} else {
-  // 新建模式
-}
+
 // 上传图片操作
 const fileRef = ref() // 上传文件ref
 const innerImgClick = async () => {
@@ -82,6 +62,7 @@ const handleCreated = (editor: any) => {
 }
 // 销毁编辑器操作
 onBeforeUnmount(() => {
+  proxy.$bus.off("innerImgClick")
   const editor = editorRef.value
   if (editor == null) return
   editor.destroy()
@@ -95,7 +76,6 @@ onBeforeUnmount(() => {
   z-index: 1;
 }
 .editor {
-  border: 1px solid;
   height: 100%;
 }
 </style>

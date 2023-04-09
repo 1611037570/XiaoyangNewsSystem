@@ -1,5 +1,4 @@
 export const formConfig = {
-  pageName: "users",
   formItems: [
     {
       prop: "id",
