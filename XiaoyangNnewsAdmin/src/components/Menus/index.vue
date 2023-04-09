@@ -32,8 +32,15 @@
 <script setup lang="ts">
 import type Menus from "./type"
 import { useSystemStore } from "@/stores/system"
+import { getMenu } from "@/service/api/system"
 const store = useSystemStore()
-let menus: Menus[] = store.menu
+let menus: Menus[] = reactive([])
+if (store.user.role == 1 || store.user.role == 0) {
+  let res = await getMenu({
+    id: store.user.id
+  })
+  menus = res.data
+}
 </script>
 
 <style lang="less" scoped>

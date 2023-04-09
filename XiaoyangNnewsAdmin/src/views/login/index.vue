@@ -1,8 +1,9 @@
 <template>
   <div class="login-controller">
     <div class="login-box">
+      <h1>新闻系统后台</h1>
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="账号登录2" name="account"></el-tab-pane>
+        <el-tab-pane label="账号登录" name="account"></el-tab-pane>
         <el-tab-pane label="验证登录" name="phone"> </el-tab-pane>
         <transition mode="out-in" enter-active-class="animate__animated animate__bounceInLeft">
           <keep-alive>
@@ -11,7 +12,8 @@
           </keep-alive>
         </transition>
       </el-tabs>
-      <el-button class="login" @click="login">1111</el-button>
+
+      <el-button class="login" @click="login">登录</el-button>
     </div>
   </div>
 </template>
@@ -39,6 +41,10 @@ const login = () => {
 
 <style lang="less" scoped>
 .login-controller {
+  h1 {
+    text-align: center;
+    margin-bottom: 5px;
+  }
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,7 +55,6 @@ const login = () => {
     border: 1px solid;
     box-sizing: border-box;
     padding: 20px;
-    height: 260px;
   }
   :deep(.el-tabs__nav) {
     width: 100%;
@@ -63,8 +68,7 @@ const login = () => {
 
   .login {
     margin-top: 10px;
-    // width: 100%;
-    margin: 0 auto !important;
+    width: 100%;
     text-align: center;
   }
 }

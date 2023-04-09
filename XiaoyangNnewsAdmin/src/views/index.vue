@@ -22,29 +22,6 @@
 import Menu from "@/components/Menus/index.vue"
 import Header from "@/components/Header/index.vue"
 import { useSystemStore } from "@/stores/system"
-import { innerTextBtn } from "@/components/Editor/innerTextBtn.js"
-import { InnerimgBtn } from "@/components/Editor/innerImgBtn.js"
-import { Boot } from "@wangeditor/editor"
-import type { IDomEditor } from "@wangeditor/editor"
-import { getCurrentInstance } from "vue"
-
-const { proxy }: any = getCurrentInstance()
-
-class NewInnerimgBtn extends InnerimgBtn {
-  exec(editor: IDomEditor, value: any) {
-    if (this.isDisabled(editor)) return
-    proxy.$bus.emit("innerImgClick")
-  }
-}
-const inImgBtn = {
-  key: "inImgBtn",
-  factory() {
-    return new NewInnerimgBtn()
-  }
-}
-
-Boot.registerMenu(innerTextBtn)
-Boot.registerMenu(inImgBtn)
 const store = useSystemStore()
 </script>
 

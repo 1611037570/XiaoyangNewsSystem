@@ -20,7 +20,7 @@ import cache from "./utils/cache"
 
 // ws
 import ScoketService from "./utils/ws"
-ScoketService.inStance.connect()
+// ScoketService.inStance.connect()
 const app = createApp(App)
 app.config.globalProperties.$bus = Mit
 app.config.globalProperties.$cache = cache

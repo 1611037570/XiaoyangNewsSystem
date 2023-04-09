@@ -27,7 +27,6 @@ const accountLogin = async () => {
     if (res.code === 200) {
       ElMessage.success("登录成功")
       store.user = res.data[0]
-      store.saveMenu()
       proxy.$cache.set("user", res.data[0])
       router.push("/")
     } else ElMessage.error("账号或密码错误")

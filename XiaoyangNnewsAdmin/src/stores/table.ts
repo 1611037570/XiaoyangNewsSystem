@@ -1,6 +1,11 @@
 import { defineStore } from "pinia"
 
 import { unify, unifyAdd, unifyDel, unifyRenew } from "@/service/api/unify"
+
+import { useSystemStore } from "./system"
+
+const system = useSystemStore()
+
 export const useTableStore = defineStore("table", {
   state() {
     return {
@@ -20,32 +25,26 @@ export const useTableStore = defineStore("table", {
   getters: {},
   actions: {
     // 更新表单
-    renewTbale() {
-      this.saveTotal()
-      this.saveList()
-    },
-
-    // 保存表单长度
-    async saveTotal() {
+    async renewTbale() {
+      let { role, id } = system.user
+      let data = reactive({})
+      if (role == 1) {
+        data = {
+          ...this.search,
+          uid: id
+        }
+      }
       let res = await unify({
         name: this.name,
         conut: true,
-        data: {
-          ...this.search
-        }
+        data
       })
       if (res.code === 200 && res.data != null) this.total = res.data[0].rows
       else ElMessage.error("表单长度未请求到数据")
-    },
-
-    // 保存表单数据
-    async saveList() {
-      let res = await unify({
+      res = await unify({
         name: this.name,
         ...this.page,
-        data: {
-          ...this.search
-        }
+        data
       })
       if (res.code === 200 && res.data != null) this.list = res.data
       else ElMessage.error("表单数据未请求到数据")

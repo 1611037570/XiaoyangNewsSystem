@@ -1,5 +1,4 @@
 import { defineStore } from "pinia"
-import { getMenu } from "@/service/api/system"
 
 export const useSystemStore = defineStore("system", {
   persist: {
@@ -14,19 +13,13 @@ export const useSystemStore = defineStore("system", {
   state() {
     return {
       isCollapse: false,
-      menu: [],
+
       user: {
         role: null,
-        id: null
+        id: null,
+        name: ""
       }
     }
   },
-  actions: {
-    async saveMenu() {
-      if (this.user.role == 1 || this.user.role == 0) {
-        let res = await getMenu()
-        this.menu = res.data
-      }
-    }
-  }
+  actions: {}
 })

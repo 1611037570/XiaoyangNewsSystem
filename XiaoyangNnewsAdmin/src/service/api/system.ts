@@ -1,8 +1,9 @@
 import request from "../index"
 
-export function getMenu() {
+export function getMenu(params: any) {
   return request.get<any>({
-    url: "/menu"
+    url: "/menu",
+    params
   })
 }
 export function login(data: any) {

@@ -61,8 +61,14 @@ router.beforeEach((to, from, next) => {
     let user = cache.get("user")
     if (user !== undefined) {
       let role = user.role
-      if (role == undefined && role != "1" && role != "0") next("/login")
-    } else next("/login")
+      if (role == undefined && role != "1" && role != "0") {
+        ElMessage.error("未知权限无法进入！")
+        next("/login")
+      }
+    } else {
+      ElMessage.error("未知权限无法进入！")
+      next("/login")
+    }
   }
 
   next()

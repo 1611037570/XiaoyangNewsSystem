@@ -118,12 +118,12 @@ const handleSelectionChange = (val: any) => {
 const handleSizeChange = (val: number) => {
   store.page.pageSize = val
   store.page.pageIndex = 0
-  store.saveList()
+  store.renewTbale()
 }
 // 分页页码事件
 const handleCurrentChange = (val: number) => {
   store.page.pageIndex = val - 1
-  store.saveList()
+  store.renewTbale()
 }
 // 操作行
 const edit = (row?: any) => {
