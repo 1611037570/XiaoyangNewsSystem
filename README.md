@@ -14,6 +14,11 @@ XiangYangNewsAdmin后台管理系统已完成
 npm install
 ```
 
+修改配置
+
+```
+XiaoyangNewsServer/db/index.js
+```
 启动项目
 
 ```
@@ -26,11 +31,6 @@ npm run serve
 
 ```powershell
 npm install
-```
-修改配置
-
-```
-XiaoyangNewsServer/db/index.js
 ```
 
 启动项目
