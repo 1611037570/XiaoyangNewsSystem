@@ -1,7 +1,11 @@
 # Vue3分支
 
-newsAdmin后台管理系统 Vue3 TypeScript Pinia ElementPlus ECharts5 WangDitor5 Axios WebSocket 已完成
-newsApp用户前台小程序 uniapp Vue Vue3 TypeScript Pinia Vant4 Axios开发中
+newsAdmin后台管理系统 Vue3 Vite TypeScript Pinia  ElementPlus ECharts5 WangEditor5 Axios WebSocket 已完成
+技术亮点...
+
+newsApp用户前台小程序 uniapp Vue3 Vite TypeScript Pinia Vant4 Axios 开发中
+
+
 # Vue2分支已完成 不再更新。
 
 ## newServer后端服务已完成
