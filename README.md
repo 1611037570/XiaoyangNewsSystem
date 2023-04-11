@@ -1,56 +1,46 @@
-# Vue3分支
+# test
 
-newsAdmin 后台管理系统 Vue3 Vite TypeScript Pinia  ElementPlus ECharts5 WangEditor5 Axios WebSocket 已完成
+This template should help get you started developing with Vue 3 in Vite.
 
-技术亮点...
+## Recommended IDE Setup
 
-newsApp 前台用户小程序 uniapp Vue3 Vite TypeScript Pinia Vant4 Axios 开发中
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
+## Type Support for `.vue` Imports in TS
 
-# Vue2分支已完成 不再更新。
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
 
-## newServer后端服务已完成
+If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
 
-创建数据库`news`  注入`news.sql`
+1. Disable the built-in TypeScript Extension
+    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
+    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
+2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
-安装依赖
+## Customize configuration
 
-```powershell
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Project Setup
+
+```sh
 npm install
 ```
 
-修改配置
+### Compile and Hot-Reload for Development
 
-```
-XiaoyangNewsServer/db/index.js
-```
-启动项目
-
-```
-npm run serve
+```sh
+npm run dev
 ```
 
-## newsAdmin后台管理系统
+### Type-Check, Compile and Minify for Production
 
-安装依赖
-
-```powershell
-npm install
+```sh
+npm run build
 ```
 
-启动项目
+### Lint with [ESLint](https://eslint.org/)
 
+```sh
+npm run lint
 ```
-npm run serve
-```
-
-## newsApp用户新闻前台
-
-安装依赖
-
-```powershell
-npm install
-```
-
-导入项目到uniapp
-
