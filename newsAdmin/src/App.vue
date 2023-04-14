@@ -26,6 +26,7 @@ const inImgBtn = {
   }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 Boot.registerMenu(inImgBtn)
 
 Boot.registerMenu(innerTextBtn)
@@ -33,6 +34,10 @@ Boot.registerMenu(innerTextBtn)
 Boot.registerMenu(innerTextBtn)
 Boot.registerMenu(inImgBtn)
 >>>>>>> 6318332f5c1ce97d497e2cc7ee3769e2dc08ab44
+=======
+Boot.registerMenu(innerTextBtn)
+Boot.registerMenu(inImgBtn)
+>>>>>>> dc327334474ef505714dc5b2cd003fea2812ae54
 </script>
 
 <style lang="less" scoped>

@@ -27,8 +27,14 @@ export default defineConfig(({ mode }) => {
           ElementPlusResolver(),
           // 自动导入图标组件
           IconsResolver()
+<<<<<<< HEAD
         ],
         dts: path.resolve(pathSrc, "auto-imports.d.ts")
+=======
+        ]
+
+        // dts: path.resolve(pathSrc, "auto-imports.d.ts")
+>>>>>>> dc327334474ef505714dc5b2cd003fea2812ae54
       }),
       Components({
         resolvers: [
@@ -38,8 +44,13 @@ export default defineConfig(({ mode }) => {
           }),
           // 自动导入 Element Plus 组件
           ElementPlusResolver()
+<<<<<<< HEAD
         ],
         dts: path.resolve(pathSrc, "components.d.ts")
+=======
+        ]
+        // dts: path.resolve(pathSrc, "components.d.ts")
+>>>>>>> dc327334474ef505714dc5b2cd003fea2812ae54
       }),
       // 自动安装Icons
       Icons({

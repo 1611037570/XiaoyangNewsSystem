@@ -21,6 +21,7 @@ import cache from "./utils/cache"
 // ws
 import ScoketService from "./utils/ws"
 ScoketService.inStance.connect()
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 const app = createApp(App)
@@ -35,6 +36,9 @@ const app = createApp(App)
 
 app.directive("div", useDivView)
 >>>>>>> 6318332f5c1ce97d497e2cc7ee3769e2dc08ab44
+=======
+const app = createApp(App)
+>>>>>>> dc327334474ef505714dc5b2cd003fea2812ae54
 app.config.globalProperties.$bus = Mit
 app.config.globalProperties.$cache = cache
 app.config.globalProperties.$socket = ScoketService.inStance

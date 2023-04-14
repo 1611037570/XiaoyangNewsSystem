@@ -12,6 +12,14 @@ export const searchConfig = {
       type: "input"
     },
     {
+<<<<<<< HEAD
+=======
+      prop: "text",
+      label: "内容",
+      type: "input"
+    },
+    {
+>>>>>>> dc327334474ef505714dc5b2cd003fea2812ae54
       prop: "title",
       label: "分类",
       type: "input"

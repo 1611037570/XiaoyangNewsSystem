@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { img } from "@/config/index.js"
 <<<<<<< HEAD
 
@@ -24,3 +25,14 @@ export const imgFilter = (str: any) => {
   else return img
 >>>>>>> 6318332f5c1ce97d497e2cc7ee3769e2dc08ab44
 }
+=======
+import { img } from "@/config/config.js"
+export const imgFilter = (str: any) => {
+  let data
+  str.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/, function (match: any, capture: any) {
+    data = capture
+  })
+  if (data) return data
+  else return img
+}
+>>>>>>> dc327334474ef505714dc5b2cd003fea2812ae54

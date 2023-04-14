@@ -1,4 +1,5 @@
 import axios from "axios"
+<<<<<<< HEAD
 import type { AxiosInstance } from "axios"
 import { DEAFULT_LADING, type XyRequestConfig, type XyRequestInterceptors } from "./type"
 
@@ -57,11 +58,62 @@ class XyRequest {
       (err) => {
         this.loading?.close()
         this.isLoading = DEAFULT_LADING
+=======
+import type { AxiosRequestConfig, AxiosInstance, AxiosResponse } from "axios"
+
+interface InterceptorHooks {
+  requestInterceptor?: (config: AxiosRequestConfig) => AxiosRequestConfig
+  requestInterceptorCatch?: (error: any) => any
+
+  responseInterceptor?: (response: AxiosResponse) => AxiosResponse
+  responseInterceptorCatch?: (error: any) => any
+}
+
+interface RequestConfig extends AxiosRequestConfig {
+  interceptorHooks?: InterceptorHooks
+}
+
+interface Data<T> {
+  data: T
+  code: boolean
+}
+
+class Request {
+  config: AxiosRequestConfig
+  interceptorHooks?: InterceptorHooks
+  instance: AxiosInstance
+
+  constructor(options: RequestConfig) {
+    this.config = options
+    this.interceptorHooks = options.interceptorHooks
+    this.instance = axios.create(options)
+
+    this.setupInterceptor()
+  }
+
+  setupInterceptor(): void {
+    this.instance.interceptors.request.use(this.interceptorHooks?.requestInterceptorCatch)
+    this.instance.interceptors.response.use(
+      this.interceptorHooks?.responseInterceptor,
+      this.interceptorHooks?.responseInterceptorCatch
+    )
+
+    this.instance.interceptors.request.use((config) => {
+      return config
+    })
+
+    this.instance.interceptors.response.use(
+      (res) => {
+        return res
+      },
+      (err) => {
+>>>>>>> dc327334474ef505714dc5b2cd003fea2812ae54
         return err
       }
     )
   }
 
+<<<<<<< HEAD
   // 网络请求
   request<T = any>(config: XyRequestConfig): Promise<T> {
     return new Promise((resolve, reject) => {
@@ -83,11 +135,22 @@ class XyRequest {
         })
         .catch((err) => {
           this.showLoading = DEAFULT_LADING // 还原状态
+=======
+  request<T = any>(config: RequestConfig): Promise<T> {
+    return new Promise((resolve, reject) => {
+      this.instance
+        .request<any>(config)
+        .then((res: any) => {
+          resolve(res)
+        })
+        .catch((err) => {
+>>>>>>> dc327334474ef505714dc5b2cd003fea2812ae54
           reject(err)
         })
     })
   }
 
+<<<<<<< HEAD
   get<T = any>(config: XyRequestConfig): Promise<T> {
     return this.request({ ...config, method: "GET" })
   }
@@ -101,8 +164,27 @@ class XyRequest {
   }
 
   patch<T = any>(config: XyRequestConfig): Promise<T> {
+=======
+  get<T = any>(config: RequestConfig): Promise<T> {
+    return this.request({ ...config, method: "GET" })
+  }
+
+  post<T = any>(config: RequestConfig): Promise<T> {
+    return this.request({ ...config, method: "POST" })
+  }
+
+  delete<T = any>(config: RequestConfig): Promise<T> {
+    return this.request({ ...config, method: "DELETE" })
+  }
+
+  patch<T = any>(config: RequestConfig): Promise<T> {
+>>>>>>> dc327334474ef505714dc5b2cd003fea2812ae54
     return this.request({ ...config, method: "PATCH" })
   }
 }
 
+<<<<<<< HEAD
 export default XyRequest
+=======
+export default Request
+>>>>>>> dc327334474ef505714dc5b2cd003fea2812ae54
